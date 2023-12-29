@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:joinyou/ui/chat_room/chat_room.dart';
+import 'package:joinyou/ui/find_team/find_team_page.dart';
+import 'package:joinyou/ui/my_team/my_team_page.dart';
+import 'package:joinyou/ui/rank_page/center_rank_page.dart';
+import 'package:joinyou/ui/setting/setting_page.dart';
 import 'app_color.dart';
 
 void main() {
@@ -13,59 +17,88 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Join You',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.grey),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: MainPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _MainPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _MainPage extends State<MainPage> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(setTitleText(_currentIndex)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: [
+        FindTeam(),
+        MyTeamPage(),
+        RankPage(),
+        ChatPage(),
+        SettingPage()
+      ][_currentIndex],
+      bottomNavigationBar: NavigationBar(
+          selectedIndex: _currentIndex,
+          destinations: const [
+            NavigationDestination(
+                icon: Icon(Icons.search),
+                label: "搜尋球團"
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            NavigationDestination(
+                icon: ImageIcon(AssetImage("assets/badminton.png")),
+                label: "我的球團"
             ),
+            NavigationDestination(
+                icon: Icon(Icons.circle_outlined),
+                label: "Logo"
+            ),
+            NavigationDestination(
+                icon: Icon(Icons.messenger_outline),
+                label: "訊息"
+            ),
+            NavigationDestination(
+                icon: Icon(Icons.person),
+                label: "我的帳戶"
+            )
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+          onDestinationSelected: (int i) {onTabTapped(i);}),
     );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  String setTitleText(int index) {
+    switch (index) {
+      case 0:
+        return "搜尋球團";
+      case 1:
+        return "我的球團";
+      case 2:
+        return "Logo";
+      case 3:
+        return "訊息";
+      case 4:
+        return "我的帳戶";
+      default:
+        return "";
+    }
   }
 }
