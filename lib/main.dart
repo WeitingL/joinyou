@@ -42,15 +42,20 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(setTitleText(_currentIndex)),
+        title: Text(setTitleText(_currentIndex))
       ),
-      body: [
-        FindTeam(),
-        MyTeamPage(),
-        RankPage(),
-        ChatPage(),
-        SettingPage()
-      ][_currentIndex],
+      body: Column(
+        children: [
+          const Divider(),
+          [
+            FindTeam(),
+            MyTeamPage(),
+            RankPage(),
+            ChatPage(),
+            SettingPage()
+          ][_currentIndex]
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
           destinations: const [
