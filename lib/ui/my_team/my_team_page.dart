@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 
+import '../component/dialog.dart';
 import '../component/team_card.dart';
+import '../current_team/current_page.dart';
 
 class MyTeamPage extends StatefulWidget {
   @override
@@ -32,13 +34,22 @@ class _MyTeamPage extends State<MyTeamPage> {
                 Positioned(
                     bottom: 20,
                     right: 0,
-                    child: Container(
-                      width: 56,
-                      height: 56,
-                      decoration: const BoxDecoration(
-                          color: AppColor.title_green, shape: BoxShape.circle),
-                      child: const Icon(Icons.add, color: AppColor.white),
-                    ))
+                    child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ManageTeamDialog();
+                              });
+                        },
+                        child: Container(
+                          width: 56,
+                          height: 56,
+                          decoration: const BoxDecoration(
+                              color: AppColor.title_green,
+                              shape: BoxShape.circle),
+                          child: const Icon(Icons.add, color: AppColor.white),
+                        )))
               ],
             )));
   }
@@ -101,11 +112,10 @@ class SwitcherTab extends StatelessWidget {
   bool isSelected;
   VoidCallback onPress;
 
-  SwitcherTab(
-      {super.key,
-      required this.title,
-      required this.isSelected,
-      required this.onPress});
+  SwitcherTab({super.key,
+    required this.title,
+    required this.isSelected,
+    required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +124,7 @@ class SwitcherTab extends StatelessWidget {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    isSelected ? AppColor.white : AppColor.transparent,
+                isSelected ? AppColor.white : AppColor.transparent,
                 shadowColor: AppColor.transparent,
                 surfaceTintColor: AppColor.transparent,
                 shape: RoundedRectangleBorder(
@@ -135,28 +145,36 @@ class FirstPage extends StatelessWidget {
       child: Column(
         children: [
           // button
-          Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: AppColor.title_green, width: 2)),
-              child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ImageIcon(
-                      AssetImage("assets/ic_team_im.png"),
-                      color: AppColor.title_green,
-                      size: 30.0,
-                    ),
-                    Text("即時球隊",
-                        style: TextStyle(
-                            color: AppColor.title_green,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 15)),
-                    Icon(Icons.arrow_forward_ios,
-                        size: 18.0, color: AppColor.title_green)
-                  ])),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CurrentTeamPage()),
+                );
+              },
+              child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                      Border.all(color: AppColor.title_green, width: 2)),
+                  child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ImageIcon(
+                          AssetImage("assets/ic_team_im.png"),
+                          color: AppColor.title_green,
+                          size: 30.0,
+                        ),
+                        Text("即時球隊",
+                            style: TextStyle(
+                                color: AppColor.title_green,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15)),
+                        Icon(Icons.arrow_forward_ios,
+                            size: 18.0, color: AppColor.title_green)
+                      ]))),
           // List
           TeamCard(),
           TeamCard(),
