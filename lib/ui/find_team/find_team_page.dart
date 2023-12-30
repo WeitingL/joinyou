@@ -14,28 +14,56 @@ class _FindTeam extends State<FindTeam> {
     return Expanded(
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(height: 24),
-                const FilterBar(),
-                const Expanded(child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Column(
+            child: Stack(alignment: Alignment.center, children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(height: 24),
+                  const ResearchArea(),
+                  Container(height: 24),
+                  const FilterBar(),
+                  const Expanded(
+                      child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        TeamCard(),
+                        TeamCard(),
+                        TeamCard(),
+                        TeamCard(),
+                        TeamCard(),
+                        TeamCard(),
+                        TeamCard()
+                      ],
+                    ),
+                  ))
+                ],
+              ),
+              Positioned(
+                bottom: 20,
+                child: Container(
+                  width: 90,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: AppColor.black,
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard()
+                      Text(
+                        "地圖",
+                        style: TextStyle(
+                            color: AppColor.white, fontWeight: FontWeight.w500),
+                      ),
+                      Icon(Icons.map, color: AppColor.white)
                     ],
                   ),
-                ))
-              ],
-            )));
+                ),
+              )
+            ])));
   }
 }
 
@@ -56,7 +84,8 @@ class _FilterBar extends State<FilterBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColor.grey, borderRadius: BorderRadius.circular(10.0)),
+          color: AppColor.text_grey_E6,
+          borderRadius: BorderRadius.circular(10.0)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -66,7 +95,8 @@ class _FilterBar extends State<FilterBar> {
               DropdownMenuItem(child: Text("1"), value: 1),
               DropdownMenuItem(child: Text("2"), value: 2),
             ],
-            hint: const Text("地點"),
+            hint: const Text("地點",
+                style: TextStyle(color: AppColor.text_grey_51)),
             onChanged: (value) {},
             underline: Container(height: 0),
             icon: const Icon(Icons.expand_more),
@@ -81,7 +111,8 @@ class _FilterBar extends State<FilterBar> {
               DropdownMenuItem(child: Text("1"), value: 1),
               DropdownMenuItem(child: Text("2"), value: 2),
             ],
-            hint: const Text("時間"),
+            hint: const Text("時間",
+                style: TextStyle(color: AppColor.text_grey_51)),
             onChanged: (value) {},
             underline: Container(height: 0),
             icon: const Icon(Icons.expand_more),
@@ -96,7 +127,8 @@ class _FilterBar extends State<FilterBar> {
               DropdownMenuItem(child: Text("1"), value: 1),
               DropdownMenuItem(child: Text("2"), value: 2),
             ],
-            hint: const Text("程度"),
+            hint: const Text("程度",
+                style: TextStyle(color: AppColor.text_grey_51)),
             onChanged: (value) {},
             underline: Container(height: 0),
             icon: const Icon(Icons.expand_more),
@@ -111,7 +143,8 @@ class _FilterBar extends State<FilterBar> {
               DropdownMenuItem(child: Text("1"), value: 1),
               DropdownMenuItem(child: Text("2"), value: 2),
             ],
-            hint: const Text("評分"),
+            hint: const Text("評分",
+                style: TextStyle(color: AppColor.text_grey_51)),
             onChanged: (value) {},
             underline: Container(height: 0),
             icon: const Icon(Icons.expand_more),
@@ -121,5 +154,32 @@ class _FilterBar extends State<FilterBar> {
         ],
       ),
     );
+  }
+}
+
+class ResearchArea extends StatefulWidget {
+  const ResearchArea({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ResearchArea();
+}
+
+class _ResearchArea extends State<ResearchArea> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        decoration: BoxDecoration(
+          color: AppColor.text_grey_E6,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const TextField(
+          decoration: InputDecoration(
+              hintText: "搜尋關鍵字",
+              hintStyle: TextStyle(color: AppColor.text_grey_94),
+              icon: Icon(Icons.search),
+              iconColor: AppColor.text_grey_94,
+              border: InputBorder.none),
+        ));
   }
 }

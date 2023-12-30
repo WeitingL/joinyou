@@ -17,7 +17,7 @@ class _TeamCard extends State<TeamCard> {
           width: 340,
           height: 166,
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor.grey, width: 2.0),
+              border: Border.all(color: AppColor.text_grey_E6, width: 2.0),
               borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             children: [
@@ -42,9 +42,25 @@ class _TeamCard extends State<TeamCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("球團名稱"),
-                      Text("110台北市信義區市府路1號5樓"),
-                      Text("\$200 TWD / 次")
+                      Text(
+                        "球團名稱",
+                        style: TextStyle(
+                            color: AppColor.title_green,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
+                      ),
+                      Text("110台北市信義區市府路1號5樓",
+                          style: TextStyle(
+                              color: AppColor.text_grey_94,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                      Text(
+                        "\$200 TWD / 次",
+                        style: TextStyle(
+                            color: AppColor.text_grey_51,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
+                      )
                     ],
                   )
                 ],
@@ -55,23 +71,28 @@ class _TeamCard extends State<TeamCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Flexible(child: Column(
+                  const Flexible(
+                      child: Column(
                     children: [Text("時段"), Text("平日 17 - 19")],
                   )),
-                  Flexible(child: Container(
+                  Flexible(
+                      child: Container(
                     width: 1,
                     height: 23,
                     color: AppColor.black,
                   )),
-                  const Flexible(child: Column(
+                  const Flexible(
+                      child: Column(
                     children: [Text("程度"), Text("初階 - 中階")],
                   )),
-                  Flexible(child: Container(
+                  Flexible(
+                      child: Container(
                     width: 1,
                     height: 23,
                     color: AppColor.black,
                   )),
-                  const Flexible(child: Column(
+                  const Flexible(
+                      child: Column(
                     children: [Text("距離"), Text("0.5 KM")],
                   ))
                 ],
