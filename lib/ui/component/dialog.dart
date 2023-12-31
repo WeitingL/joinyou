@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 
+import '../create_team_pages/create_normal_team.dart';
+import '../create_team_pages/create_team.dart';
+
 class ManageTeamDialog extends StatelessWidget {
   const ManageTeamDialog({super.key});
 
@@ -21,7 +24,11 @@ class ManageTeamDialog extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      print("object");
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateNormalTeam()));
                     },
                     child: Container(
                       width: 140,
@@ -40,7 +47,11 @@ class ManageTeamDialog extends StatelessWidget {
                 Container(width: 8),
                 GestureDetector(
                     onTap: () {
-                      print("object");
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateTeamPage()));
                     },
                     child: Container(
                       width: 140,
