@@ -56,10 +56,10 @@ class EditNumContentArea extends StatefulWidget {
   EditNumContentArea({super.key, required this.title, required this.hintTitle});
 
   @override
-  State<StatefulWidget> createState() => _EditContentArea();
+  State<StatefulWidget> createState() => _EditNumContentArea();
 }
 
-class _EditContentArea extends State<EditNumContentArea> {
+class _EditNumContentArea extends State<EditNumContentArea> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,6 +80,43 @@ class _EditContentArea extends State<EditNumContentArea> {
               hintStyle: TextStyle(color: AppColor.text_grey_94),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+        )
+      ],
+    );
+  }
+}
+
+class EditTextContentArea extends StatefulWidget {
+  String title;
+  String hintTitle;
+
+  EditTextContentArea({super.key, required this.title, required this.hintTitle});
+
+  @override
+  State<StatefulWidget> createState() => _EditTextContentArea();
+}
+
+class _EditTextContentArea extends State<EditTextContentArea> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: const EdgeInsets.only(left: 8, bottom: 4),
+            child: Text(
+              widget.title,
+              style: const TextStyle(fontSize: 18),
+            )),
+        TextField(
+          keyboardType: TextInputType.text,
+          inputFormatters: [FilteringTextInputFormatter.singleLineFormatter],
+          decoration: InputDecoration(
+              hintText: widget.hintTitle,
+              hintStyle: TextStyle(color: AppColor.text_grey_94),
+              border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         )
       ],
     );

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
 
@@ -69,10 +72,9 @@ class _TitleImgArea extends State<TitleImgArea> {
         Text("封面照片"),
         SizedBox(height: 10),
         Container(
-            height: 120,
-            decoration: BoxDecoration(
-                color: AppColor.text_grey_E6,
-                borderRadius: BorderRadius.circular(10))),
+          height: 120,
+          child: ImageEditArea(imgFile: null),
+        ),
         SizedBox(height: 10),
         Text("圖檔僅接受 PNG 和 JPG 且檔案大小不可超過 5 MB")
       ],
@@ -97,14 +99,45 @@ class _IconImgArea extends State<IconImgArea> {
         Text("封面照片"),
         SizedBox(height: 10),
         Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-                color: AppColor.text_grey_E6,
-                borderRadius: BorderRadius.circular(10))),
+          width: 120,
+          height: 120,
+          child: ImageEditArea(imgFile: null),
+        ),
         SizedBox(height: 10),
         Text("圖檔僅接受 PNG 和 JPG 且檔案大小不可超過 5 MB")
       ],
     );
   }
+}
+
+class ImageEditArea extends StatefulWidget {
+  File? imgFile;
+  ImageEditArea({super.key, required this.imgFile});
+  @override
+  State<ImageEditArea> createState() => _ImageEditAreaState();
+}
+
+class _ImageEditAreaState extends State<ImageEditArea> {
+  File? _imgFile;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_imgFile == null) {
+      return GestureDetector(onTap: _pickImage,child: Container(
+        decoration: BoxDecoration(
+            color: AppColor.text_grey_E6,
+            borderRadius: BorderRadius.circular(10)),
+      ));
+    } else {
+      return Image.file(_imgFile!);
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imgFile = pickedFile != null ? File(pickedFile.path) : null;
+    });
+  }
+
 }
