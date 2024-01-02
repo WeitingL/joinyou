@@ -15,7 +15,6 @@ class _TeamCard extends State<TeamCard> {
         padding: const EdgeInsets.symmetric(vertical: 14),
         child: Container(
           width: 340,
-          height: 166,
           decoration: BoxDecoration(
               border: Border.all(color: AppColor.text_grey_E6, width: 2.0),
               borderRadius: BorderRadius.circular(10.0)),

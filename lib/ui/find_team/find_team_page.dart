@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 
 import '../component/team_card.dart';
+import 'find_team_map.dart';
 
 class FindTeam extends StatefulWidget {
   @override
@@ -41,28 +42,35 @@ class _FindTeam extends State<FindTeam> {
                 ],
               ),
               Positioned(
-                bottom: 20,
-                child: Container(
-                  width: 90,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColor.black,
-                    borderRadius: BorderRadius.circular(30)
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "地圖",
-                        style: TextStyle(
-                            color: AppColor.white, fontWeight: FontWeight.w500),
+                  bottom: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FindTeamByMap()));
+                    },
+                    child: Container(
+                      width: 90,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: AppColor.black,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "地圖",
+                            style: TextStyle(
+                                color: AppColor.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Icon(Icons.map, color: AppColor.white)
+                        ],
                       ),
-                      Icon(Icons.map, color: AppColor.white)
-                    ],
-                  ),
-                ),
-              )
+                    ),
+                  ))
             ])));
   }
 }
