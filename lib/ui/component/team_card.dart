@@ -1,25 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:joinyou/app_color.dart';
+import 'package:joinyou/data/data_team.dart';
 
-class TeamCard extends StatefulWidget {
-  const TeamCard({super.key});
+class TeamCard extends StatelessWidget {
+  TeamData teamData;
+  Function onTap;
 
-  @override
-  State<StatefulWidget> createState() => _TeamCard();
-}
+  TeamCard({super.key, required this.teamData, required this.onTap});
 
-class _TeamCard extends State<TeamCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 14),
         child: Container(
-          width: 340,
-          decoration: BoxDecoration(
-              border: Border.all(color: AppColor.text_grey_E6, width: 2.0),
-              borderRadius: BorderRadius.circular(10.0)),
-          child: Column(
-            children: [
+            width: 340,
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColor.text_grey_E6, width: 2.0),
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,23 +35,23 @@ class _TeamCard extends State<TeamCard> {
                       )),
 
                   // Content
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "球團名稱",
-                        style: TextStyle(
+                        teamData.teamName,
+                        style: const TextStyle(
                             color: AppColor.title_green,
                             fontWeight: FontWeight.w600,
                             fontSize: 16),
                       ),
-                      Text("110台北市信義區市府路1號5樓",
-                          style: TextStyle(
+                      Text(teamData.address,
+                          style: const TextStyle(
                               color: AppColor.text_grey_94,
                               fontWeight: FontWeight.w400,
                               fontSize: 14)),
-                      Text(
+                      const Text(
                         "\$200 TWD / 次",
                         style: TextStyle(
                             color: AppColor.text_grey_51,
@@ -67,37 +65,34 @@ class _TeamCard extends State<TeamCard> {
               //-----------------------------//
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Flexible(
-                      child: Column(
-                    children: [Text("時段"), Text("平日 17 - 19")],
-                  )),
-                  Flexible(
-                      child: Container(
-                    width: 1,
-                    height: 23,
-                    color: AppColor.black,
-                  )),
-                  const Flexible(
-                      child: Column(
-                    children: [Text("程度"), Text("初階 - 中階")],
-                  )),
-                  Flexible(
-                      child: Container(
-                    width: 1,
-                    height: 23,
-                    color: AppColor.black,
-                  )),
-                  const Flexible(
-                      child: Column(
-                    children: [Text("距離"), Text("0.5 KM")],
-                  ))
-                ],
-              )
-            ],
-          ),
-        ));
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                        child: Column(
+                      children: [Text("時段"), Text(teamData.timeSlot)],
+                    )),
+                    Flexible(
+                        child: Container(
+                      width: 1,
+                      height: 23,
+                      color: AppColor.black,
+                    )),
+                    Flexible(
+                        child: Column(
+                      children: [Text("程度"), Text(teamData.level)],
+                    )),
+                    Flexible(
+                        child: Container(
+                      width: 1,
+                      height: 23,
+                      color: AppColor.black,
+                    )),
+                    const Flexible(
+                        child: Column(
+                      children: [Text("距離"), Text("0.5 KM")],
+                    ))
+                  ])
+            ])));
   }
 }

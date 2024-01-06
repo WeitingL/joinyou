@@ -1,77 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
+import 'package:joinyou/ui/find_team/find_team_bloc.dart';
 
 import '../component/team_card.dart';
 import 'find_team_map.dart';
 
-class FindTeam extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _FindTeam();
-}
+class FindTeam extends StatelessWidget {
+  const FindTeam({super.key});
 
-class _FindTeam extends State<FindTeam> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Stack(alignment: Alignment.center, children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(height: 24),
-                  const ResearchArea(),
-                  Container(height: 24),
-                  const FilterBar(),
-                  const Expanded(
-                      child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Column(
-                      children: [
-                        TeamCard(),
-                        TeamCard(),
-                        TeamCard(),
-                        TeamCard(),
-                        TeamCard(),
-                        TeamCard(),
-                        TeamCard()
-                      ],
-                    ),
-                  ))
-                ],
-              ),
-              Positioned(
-                  bottom: 20,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FindTeamByMap()));
-                    },
-                    child: Container(
-                      width: 90,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: AppColor.black,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Row(
+    return BlocProvider(
+        create: (context) => TeamListCubit(),
+        child: BlocBuilder<TeamListCubit, FindTeamViewState>(
+            builder: (context, state) => Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Stack(alignment: Alignment.center, children: [
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            "地圖",
-                            style: TextStyle(
-                                color: AppColor.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Icon(Icons.map, color: AppColor.white)
+                          Container(height: 24),
+                          const ResearchArea(),
+                          Container(height: 24),
+                          const FilterBar(),
+                          Expanded(
+                              child: SingleChildScrollView(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(
+                                      children: state.teamList
+                                          .map((e) => TeamCard(
+                                                teamData: e,
+                                                onTap: () {},
+                                              ))
+                                          .toList())))
                         ],
                       ),
-                    ),
-                  ))
-            ])));
+                      Positioned(
+                          bottom: 20,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FindTeamByMap()));
+                            },
+                            child: Container(
+                              width: 90,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: AppColor.black,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "地圖",
+                                    style: TextStyle(
+                                        color: AppColor.white,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Icon(Icons.map, color: AppColor.white)
+                                ],
+                              ),
+                            ),
+                          ))
+                    ])))));
   }
 }
 

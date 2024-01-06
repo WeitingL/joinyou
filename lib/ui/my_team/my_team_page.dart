@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
+import 'package:joinyou/data/data_team.dart';
 
 import '../component/dialog.dart';
 import '../component/team_card.dart';
@@ -112,10 +113,11 @@ class SwitcherTab extends StatelessWidget {
   bool isSelected;
   VoidCallback onPress;
 
-  SwitcherTab({super.key,
-    required this.title,
-    required this.isSelected,
-    required this.onPress});
+  SwitcherTab(
+      {super.key,
+      required this.title,
+      required this.isSelected,
+      required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class SwitcherTab extends StatelessWidget {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor:
-                isSelected ? AppColor.white : AppColor.transparent,
+                    isSelected ? AppColor.white : AppColor.transparent,
                 shadowColor: AppColor.transparent,
                 surfaceTintColor: AppColor.transparent,
                 shape: RoundedRectangleBorder(
@@ -157,7 +159,7 @@ class FirstPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border:
-                      Border.all(color: AppColor.title_green, width: 2)),
+                          Border.all(color: AppColor.title_green, width: 2)),
                   child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,11 +178,9 @@ class FirstPage extends StatelessWidget {
                             size: 18.0, color: AppColor.title_green)
                       ]))),
           // List
-          TeamCard(),
-          TeamCard(),
-          TeamCard(),
-          TeamCard(),
-          TeamCard()
+          TeamCard(teamData: TeamData(),onTap: () {}),
+          TeamCard(teamData: TeamData(),onTap: () {}),
+          TeamCard(teamData: TeamData(),onTap: () {})
         ],
       ),
     );
@@ -192,7 +192,10 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [TeamCard(), TeamCard(), TeamCard(), TeamCard(), TeamCard()],
+        children: [
+          TeamCard(teamData: TeamData(), onTap: () {}),
+          TeamCard(teamData: TeamData(), onTap: () {})
+        ],
       ),
     );
   }
