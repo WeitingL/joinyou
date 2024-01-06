@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
@@ -36,30 +37,35 @@ class TeamCard extends StatelessWidget {
 
                   // Content
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        teamData.teamName,
-                        style: const TextStyle(
-                            color: AppColor.title_green,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                      ),
-                      Text(teamData.address,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          teamData.teamName,
                           style: const TextStyle(
-                              color: AppColor.text_grey_94,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14)),
-                      Text(
-                        "男 ${teamData.maleFee} / 女 ${teamData.femaleFee}",
-                        style: const TextStyle(
-                            color: AppColor.text_grey_51,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15),
-                      )
-                    ],
-                  )
+                              color: AppColor.title_green,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16),
+                        ),
+                        Text(teamData.address,
+                            style: const TextStyle(
+                                color: AppColor.text_grey_94,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14)),
+                        Text(
+                          "男 ${teamData.maleFee} / 女 ${teamData.femaleFee}",
+                          style: const TextStyle(
+                              color: AppColor.text_grey_51,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                        )
+                      ]),
+                  const Expanded(
+                      child: SizedBox(
+                          height: 80.0,
+                          child: Column(
+                            children: [Icon(Icons.ios_share)],
+                          )))
                 ],
               ),
               //-----------------------------//
@@ -70,8 +76,7 @@ class TeamCard extends StatelessWidget {
                   children: [
                     Flexible(
                         child: Column(
-                      children: [Text("時段"), Text(teamData.timeSlot)],
-                    )),
+                            children: [Text("時段"), Text(teamData.timeSlot)])),
                     Container(
                       width: 1,
                       height: 23,
@@ -79,17 +84,14 @@ class TeamCard extends StatelessWidget {
                     ),
                     Flexible(
                         child: Column(
-                      children: [Text("程度"), Text(teamData.level)],
-                    )),
+                            children: [Text("程度"), Text(teamData.level)])),
                     Container(
                       width: 1,
                       height: 23,
                       color: AppColor.black,
                     ),
                     Flexible(
-                        child: Column(
-                      children: [Text("距離"), Text("0.5 KM")],
-                    ))
+                        child: Column(children: [Text("距離"), Text("0.5 KM")]))
                   ])
             ])));
   }
