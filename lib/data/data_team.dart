@@ -7,8 +7,8 @@ class TeamData {
   int commentCount = 0;
 
   String address = "110台北市信義區市府路1號5樓";
-  int maleFee = 100;
-  int femaleFee = 100;
+  int maleFee = 200;
+  int femaleFee = 150;
 
   String timeSlot = "平日 17 - 19";
   String level = "初階 - 中階";

@@ -51,9 +51,9 @@ class TeamCard extends StatelessWidget {
                               color: AppColor.text_grey_94,
                               fontWeight: FontWeight.w400,
                               fontSize: 14)),
-                      const Text(
-                        "\$200 TWD / 次",
-                        style: TextStyle(
+                      Text(
+                        "男 ${teamData.maleFee} / 女 ${teamData.femaleFee}",
+                        style: const TextStyle(
                             color: AppColor.text_grey_51,
                             fontWeight: FontWeight.w500,
                             fontSize: 15),
@@ -72,23 +72,21 @@ class TeamCard extends StatelessWidget {
                         child: Column(
                       children: [Text("時段"), Text(teamData.timeSlot)],
                     )),
-                    Flexible(
-                        child: Container(
+                    Container(
                       width: 1,
                       height: 23,
                       color: AppColor.black,
-                    )),
+                    ),
                     Flexible(
                         child: Column(
                       children: [Text("程度"), Text(teamData.level)],
                     )),
-                    Flexible(
-                        child: Container(
+                    Container(
                       width: 1,
                       height: 23,
                       color: AppColor.black,
-                    )),
-                    const Flexible(
+                    ),
+                    Flexible(
                         child: Column(
                       children: [Text("距離"), Text("0.5 KM")],
                     ))
