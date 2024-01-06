@@ -1,64 +1,74 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
 import '../component/dialog.dart';
 import '../component/team_card.dart';
 import '../current_team/current_page.dart';
+import 'my_team_bloc.dart';
 
 class MyTeamPage extends StatefulWidget {
+  const MyTeamPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _MyTeamPage();
 }
 
 class _MyTeamPage extends State<MyTeamPage> {
-  bool _isFirstPage = true;
-
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Column(
-                  children: [
-                    SwitcherTabsArea(onPressLis: (bool b) {
-                      setPage(b);
-                    }),
-                    Container(height: 20),
-                    Expanded(child: _isFirstPage ? FirstPage() : SecondPage())
-                  ],
-                ),
-                Positioned(
-                    bottom: 20,
-                    right: 0,
-                    child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return ManageTeamDialog();
-                              });
-                        },
-                        child: Container(
-                          width: 56,
-                          height: 56,
-                          decoration: const BoxDecoration(
-                              color: AppColor.title_green,
-                              shape: BoxShape.circle),
-                          child: const Icon(Icons.add, color: AppColor.white),
-                        )))
-              ],
-            )));
-  }
-
-  void setPage(bool isFirstPage) {
-    setState(() {
-      _isFirstPage = isFirstPage;
-    });
+    return BlocProvider(
+        create: (context) => MyTeamCubit(),
+        child: BlocBuilder<MyTeamCubit, IMyTeamState>(
+            builder: (context, state) => Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            SwitcherTabsArea(onPressLis: (bool isFirstPage) {
+                              if (isFirstPage) {
+                                context.read<MyTeamCubit>().getMyTeam();
+                              } else {
+                                context.read<MyTeamCubit>().getMyPlayList();
+                              }
+                            }),
+                            Container(height: 20),
+                            if (state is MyTeamState)
+                              Expanded(child: FirstPage(myTeams: state.myTeams))
+                            else if (state is MyPlayListState)
+                              Expanded(
+                                  child: SecondPage(myTeams: state.myPlayList))
+                            else
+                              Center(child: Text("Still loading"))
+                          ],
+                        ),
+                        Positioned(
+                            bottom: 20,
+                            right: 0,
+                            child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return ManageTeamDialog();
+                                      });
+                                },
+                                child: Container(
+                                  width: 56,
+                                  height: 56,
+                                  decoration: const BoxDecoration(
+                                      color: AppColor.title_green,
+                                      shape: BoxShape.circle),
+                                  child: const Icon(Icons.add,
+                                      color: AppColor.white),
+                                )))
+                      ],
+                    )))));
   }
 }
 
@@ -141,62 +151,77 @@ class SwitcherTab extends StatelessWidget {
 }
 
 class FirstPage extends StatelessWidget {
+  late List<TeamData> myTeams;
+
+  FirstPage({super.key, required this.myTeams});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(children: [
+      // button
+      GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CurrentTeamPage()),
+            );
+          },
+          child: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColor.title_green, width: 2)),
+              child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ImageIcon(
+                      AssetImage("assets/ic_team_im.png"),
+                      color: AppColor.title_green,
+                      size: 30.0,
+                    ),
+                    Text("即時球隊",
+                        style: TextStyle(
+                            color: AppColor.title_green,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15)),
+                    Icon(Icons.arrow_forward_ios,
+                        size: 18.0, color: AppColor.title_green)
+                  ]))),
+      // List
+      for (var i = 0; i < myTeams.length; i++)
+        TeamCard(teamData: myTeams[i], onTap: () {})
+    ]));
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  late List<TeamData> myTeams;
+
+  SecondPage({super.key, required this.myTeams});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // button
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CurrentTeamPage()),
-                );
-              },
-              child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border:
-                          Border.all(color: AppColor.title_green, width: 2)),
-                  child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ImageIcon(
-                          AssetImage("assets/ic_team_im.png"),
-                          color: AppColor.title_green,
-                          size: 30.0,
-                        ),
-                        Text("即時球隊",
-                            style: TextStyle(
-                                color: AppColor.title_green,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15)),
-                        Icon(Icons.arrow_forward_ios,
-                            size: 18.0, color: AppColor.title_green)
-                      ]))),
-          // List
-          TeamCard(teamData: TeamData(),onTap: () {}),
-          TeamCard(teamData: TeamData(),onTap: () {}),
-          TeamCard(teamData: TeamData(),onTap: () {})
+          for (var i = 0; i < myTeams.length; i++)
+            TeamCard(teamData: myTeams[i], onTap: () {})
         ],
       ),
     );
   }
 }
 
-class SecondPage extends StatelessWidget {
+class CommonBtn extends StatelessWidget {
+  String title;
+  VoidCallback onPressed;
+
+  CommonBtn({super.key, required this.title, required this.onPressed});
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          TeamCard(teamData: TeamData(), onTap: () {}),
-          TeamCard(teamData: TeamData(), onTap: () {})
-        ],
-      ),
-    );
+    return ElevatedButton(onPressed: onPressed, child: Text(title));
   }
 }
