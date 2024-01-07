@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/find_team/find_team_bloc.dart';
 
+import '../component/loading.dart';
 import '../component/team_card.dart';
 import 'find_team_map.dart';
 
@@ -13,7 +14,7 @@ class FindTeam extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => TeamListCubit(),
-        child: BlocBuilder<TeamListCubit, FindTeamViewState>(
+        child: BlocBuilder<TeamListCubit, IFindTeamState>(
             builder: (context, state) => Expanded(
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -26,17 +27,20 @@ class FindTeam extends StatelessWidget {
                           const ResearchArea(),
                           Container(height: 24),
                           const FilterBar(),
-                          Expanded(
-                              child: SingleChildScrollView(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(
-                                      children: state.teamList
-                                          .map((e) => TeamCard(
-                                              teamData: e,
-                                              onTap: () {},
-                                              onShareTap: () {}))
-                                          .toList())))
+                          if (state is LoadingState)
+                            Expanded(child: Center(child: Loading(size: 30)))
+                          else if (state is FindTeamViewState)
+                            Expanded(
+                                child: SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: Column(
+                                        children: state.teamList
+                                            .map((e) => TeamCard(
+                                                teamData: e,
+                                                onTap: () {},
+                                                onShareTap: () {}))
+                                            .toList())))
                         ],
                       ),
                       Positioned(
