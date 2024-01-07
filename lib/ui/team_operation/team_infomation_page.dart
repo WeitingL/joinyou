@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
+import '../component/bottom_bar.dart';
 import '../component/comment_component.dart';
 import '../component/info_component.dart';
 import '../component/loading.dart';
@@ -16,9 +17,11 @@ class TeamInformationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      Positioned(child: TeamInformationLayout(teamData: teamData)),
-      const Positioned(child: SafeArea(child: ToolBarArea()))
-    ]));
+          Positioned(child: TeamInformationLayout(teamData: teamData)),
+          const Positioned(child: SafeArea(child: ToolBarArea()))
+        ]),
+      bottomNavigationBar: SafeArea(child: BottomBar(content: "開始排點", action: () {})),
+    );
   }
 }
 
@@ -132,6 +135,13 @@ class TeamInformationLayout extends StatelessWidget {
                   onPress: () {},
                   startCount: teamData.score,
                   reviewCount: teamData.commentCount),
+              const SizedBox(height: 8),
+              ReviewComment(
+                  name: "王大陸",
+                  date: "2021/08/01",
+                  rating: 4.5,
+                  comment: "球場很好，團主很帥"),
+              const Divider(),
             ],
           ),
         )

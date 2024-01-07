@@ -80,3 +80,54 @@ class StarRating extends StatelessWidget {
     );
   }
 }
+
+class ReviewComment extends StatelessWidget {
+  String name;
+  String date;
+  double rating;
+  String comment;
+
+  ReviewComment(
+      {super.key,
+      required this.name,
+      required this.date,
+      required this.rating,
+      required this.comment});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const ImageIcon(AssetImage("assets/ic_account_defaultphoto.png"),
+            color: AppColor.title_green, size: 35.0),
+        const SizedBox(width: 8),
+        Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16),
+                  )
+                ]),
+                const SizedBox(width: 8),
+                StarRating(startCount: rating.toInt(), size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  comment,
+                  style: const TextStyle(color: AppColor.black, fontSize: 16),
+                )
+              ],
+            ))
+      ],
+    );
+  }
+}
