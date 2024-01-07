@@ -33,9 +33,9 @@ class FindTeam extends StatelessWidget {
                                   child: Column(
                                       children: state.teamList
                                           .map((e) => TeamCard(
-                                                teamData: e,
-                                                onTap: () {},
-                                              ))
+                                              teamData: e,
+                                              onTap: () {},
+                                              onShareTap: () {}))
                                           .toList())))
                         ],
                       ),

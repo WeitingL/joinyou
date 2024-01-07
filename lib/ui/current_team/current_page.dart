@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 
+import '../component/info_component.dart';
+
 class CurrentTeamPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _CurrentTeamPage();
@@ -49,50 +51,15 @@ class _CurrentTeamPage extends State<CurrentTeamPage> {
           const SizedBox(height: 30),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: AppColor.text_grey_E6, width: 2),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InfoContent(title: "場地數", content: "8"),
-                    Container(
-                      width: 1, height: 20, color: AppColor.text_grey_E6,
-                    ),
-                    InfoContent(title: "打球時長", content: "2 小時"),
-                    Container(
-                      width: 1, height: 20, color: AppColor.text_grey_E6,
-                    ),
-                    InfoContent(title: "團主加入", content: "是")
-                  ],
-                ),
-              ))
+              child: CardInformation(
+                  titleLeft: "場地數",
+                  titleMed: "打球時長",
+                  titleRight: "團主加入",
+                  contentLeft: "8",
+                  contentMed: "2 小時",
+                  contentRight: "是"))
         ],
       ),
     );
   }
-}
-
-class InfoContent extends StatelessWidget {
-  String title;
-  String content;
-
-  InfoContent({super.key, required this.title, required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(title, style: const TextStyle(color: AppColor.title_green, fontWeight: FontWeight.w600)),
-        Text(content, style: const TextStyle(color: AppColor.black))
-      ],
-    );
-  }
-
 }

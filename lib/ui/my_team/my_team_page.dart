@@ -7,6 +7,7 @@ import 'package:joinyou/data/data_team.dart';
 import '../component/dialog.dart';
 import '../component/team_card.dart';
 import '../current_team/current_page.dart';
+import '../team_operation/team_infomation_page.dart';
 import 'my_team_bloc.dart';
 
 class MyTeamPage extends StatefulWidget {
@@ -100,12 +101,20 @@ class _SwitcherTabsArea extends State<SwitcherTabsArea> {
                 child: SwitcherTab(
                     title: "我的臨打",
                     isSelected: _firstPage,
-                    onPress: changePage)),
+                    onPress: () {
+                      if (_firstPage == false) {
+                        changePage();
+                      }
+                    })),
             Expanded(
                 child: SwitcherTab(
                     title: "管理球隊",
                     isSelected: !_firstPage,
-                    onPress: changePage))
+                    onPress: () {
+                      if (_firstPage == true) {
+                        changePage();
+                      }
+                    }))
           ],
         ));
   }
@@ -191,7 +200,7 @@ class FirstPage extends StatelessWidget {
                   ]))),
       // List
       for (var i = 0; i < myTeams.length; i++)
-        TeamCard(teamData: myTeams[i], onTap: () {})
+        TeamCard(teamData: myTeams[i], onTap: () {}, onShareTap: () {})
     ]));
   }
 }
@@ -207,7 +216,17 @@ class SecondPage extends StatelessWidget {
       child: Column(
         children: [
           for (var i = 0; i < myTeams.length; i++)
-            TeamCard(teamData: myTeams[i], onTap: () {})
+            TeamCard(
+                teamData: myTeams[i],
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TeamInformationPage(teamData: myTeams[i])),
+                  );
+                },
+                onShareTap: () {})
         ],
       ),
     );

@@ -2,8 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:joinyou/app_color.dart';
+
+import '../my_team/my_team_bloc.dart';
+import 'find_team_bloc.dart';
 
 class FindTeamByMap extends StatefulWidget {
   const FindTeamByMap({super.key});
@@ -27,49 +31,58 @@ class _FindTeamByMap extends State<FindTeamByMap>
 
   @override
   void initState() {
-    super.initState();
     _animationController = BottomSheet.createAnimationController(this);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: [
-        GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _initTaipei,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-            myLocationEnabled: true,
-            myLocationButtonEnabled: false),
+    return BlocProvider(
+        create: (context) => MyTeamCubit(),
+        child: BlocBuilder<MyTeamCubit, IMyTeamState>(
+            builder: (context, state) => Scaffold(
+                  body: Stack(children: [
+                    GoogleMap(
+                      mapType: MapType.normal,
+                      initialCameraPosition: _initTaipei,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: false,
+                      markers: {
+                        Marker(
+                            markerId: MarkerId("1"),
+                            position: LatLng(25.033142, 121.564212))
+                      },
+                    ),
 
-        //Title
-        const SafeArea(child: ToolBarArea()),
-      ]),
-      floatingActionButton: Container(
-          padding: _showDetail
-              ? const EdgeInsets.only(bottom: 100)
-              : const EdgeInsets.only(bottom: 0),
-          child: FloatingActionButton(
-            backgroundColor: AppColor.white,
-            shape: const CircleBorder(),
-            onPressed: () {},
-            child: const Icon(Icons.location_searching),
-          )),
-      bottomSheet: _showDetail
-          ? BottomSheet(
-              animationController: _animationController,
-              onClosing: () {
-                setState(() {
-                  _showDetail = false;
-                });
-              },
-              builder: (context) {
-                return Container(height: 300);
-              })
-          : null,
-    );
+                    //Title
+                    const SafeArea(child: ToolBarArea()),
+                  ]),
+                  floatingActionButton: Container(
+                      padding: _showDetail
+                          ? const EdgeInsets.only(bottom: 100)
+                          : const EdgeInsets.only(bottom: 0),
+                      child: FloatingActionButton(
+                        backgroundColor: AppColor.white,
+                        shape: const CircleBorder(),
+                        onPressed: () {},
+                        child: const Icon(Icons.location_searching),
+                      )),
+                  bottomSheet: _showDetail
+                      ? BottomSheet(
+                          animationController: _animationController,
+                          onClosing: () {
+                            setState(() {
+                              _showDetail = false;
+                            });
+                          },
+                          builder: (context) {
+                            return Container(height: 300);
+                          })
+                      : null,
+                )));
   }
 }
 
