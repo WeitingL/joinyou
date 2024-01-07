@@ -5,6 +5,7 @@ import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
 import '../component/dialog.dart';
+import '../component/loading.dart';
 import '../component/team_card.dart';
 import '../current_team/current_page.dart';
 import '../team_operation/team_infomation_page.dart';
@@ -45,7 +46,7 @@ class _MyTeamPage extends State<MyTeamPage> {
                               Expanded(
                                   child: SecondPage(myTeams: state.myPlayList))
                             else
-                              Center(child: Text("Still loading"))
+                              Expanded(child: Center(child: Loading(size: 30)))
                           ],
                         ),
                         Positioned(
