@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
+import 'package:joinyou/ui/create_team_pages/set_team_location_full.dart';
 
 import '../component/bottom_bar.dart';
 import '../component/edit_components.dart';
@@ -18,7 +19,7 @@ class _SettingTeamLocation extends State<SettingTeamLocation> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("新增球隊位置"),
+          title: const Text("新增球隊位置"),
         ),
         body: SafeArea(
             child: Column(
@@ -26,6 +27,24 @@ class _SettingTeamLocation extends State<SettingTeamLocation> {
             Container(
               height: 220,
               color: AppColor.text_grey_94,
+              child: Stack(
+                children: [
+                  Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 20,
+                      child: Center(
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            FullMapLocationSetting()));
+                              },
+                              child: const Text("球隊位置"))))
+                ],
+              ),
             ),
             SizedBox(height: 20),
             Padding(

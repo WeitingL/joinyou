@@ -8,6 +8,7 @@ import '../component/dialog.dart';
 import '../component/loading.dart';
 import '../component/team_card.dart';
 import '../current_team/current_page.dart';
+import '../team_operation/master/game_prepare.dart';
 import '../team_operation/team_infomation_page.dart';
 import 'my_team_bloc.dart';
 
@@ -224,7 +225,7 @@ class SecondPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            TeamInformationPage(teamData: myTeams[i])),
+                            MasterGamePrepare(teamData: myTeams[i])),
                   );
                 },
                 onShareTap: () {})

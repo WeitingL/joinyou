@@ -14,4 +14,7 @@ class AppColor {
   static const Color text_grey_94 = Color(0xFF949494);
   static const Color title_green = Color(0xFF69A794);
 
+  static const Color tag_yellow = Color(0xFFFED71A);
+  static const Color tag_red = Color(0xFFF44336);
+
 }

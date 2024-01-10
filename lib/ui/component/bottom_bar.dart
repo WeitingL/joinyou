@@ -34,11 +34,11 @@ class BottomBarNext extends StatelessWidget {
 }
 
 // build a buttonbar with a vertical divider and button
-class BottomBar extends StatelessWidget {
+class BottomBarCenterButton extends StatelessWidget {
   VoidCallback action;
   String content;
 
-  BottomBar({super.key, required this.action, required this.content});
+  BottomBarCenterButton({super.key, required this.action, required this.content});
 
   @override
   Widget build(BuildContext context) {
