@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
+import '../../data/team_data_type.dart';
 import '../component/dialog.dart';
 import '../component/loading.dart';
 import '../component/team_card.dart';
 import '../current_team/current_page.dart';
 import '../team_operation/master/game_prepare.dart';
 import '../team_operation/team_infomation_page.dart';
+import '../team_operation/team_operation_page.dart';
 import 'my_team_bloc.dart';
 
 class MyTeamPage extends StatefulWidget {
@@ -224,8 +226,9 @@ class SecondPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            MasterGamePrepare(teamData: myTeams[i])),
+                        builder: (context) => TeamOperationPage(
+                            teamData: myTeams[i],
+                            infoType: InfoType.MasterPage)),
                   );
                 },
                 onShareTap: () {})

@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/find_team/find_team_bloc.dart';
 
+import '../../data/team_data_type.dart';
 import '../component/loading.dart';
 import '../component/team_card.dart';
+import '../team_operation/team_operation_page.dart';
 import 'find_team_map.dart';
 
 class FindTeam extends StatelessWidget {
@@ -38,7 +40,17 @@ class FindTeam extends StatelessWidget {
                                         children: state.teamList
                                             .map((e) => TeamCard(
                                                 teamData: e,
-                                                onTap: () {},
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TeamOperationPage(
+                                                                  infoType: InfoType
+                                                                      .MemberPage,
+                                                                  teamData:
+                                                                      e)));
+                                                },
                                                 onShareTap: () {}))
                                             .toList())))
                         ],
