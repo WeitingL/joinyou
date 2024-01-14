@@ -37,22 +37,24 @@ class FindTeam extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 20),
                                     child: Column(
-                                        children: state.teamList
-                                            .map((e) => TeamCard(
-                                                teamData: e,
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              TeamOperationPage(
-                                                                  infoType: InfoType
-                                                                      .MemberPage,
-                                                                  teamData:
-                                                                      e)));
-                                                },
-                                                onShareTap: () {}))
-                                            .toList())))
+                                      children: [
+                                        for (var team in state.teamList)
+                                          TeamCard(
+                                            teamData: team,
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TeamOperationPage(
+                                                              infoType: InfoType
+                                                                  .MasterPage,
+                                                              teamData: team)));
+                                            },
+                                            onShareTap: () {},
+                                          )
+                                      ],
+                                    )))
                         ],
                       ),
                       Positioned(

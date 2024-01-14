@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
+import '../../data/comment_data.dart';
 import '../component/comment_component.dart';
 import '../component/info_component.dart';
 import 'master/member_management.dart';
@@ -26,7 +27,8 @@ class ToolBarArea extends StatelessWidget {
                 itemBuilder: (context) => [
                       PopupMenuItem(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
                               return MemberManager();
                             }));
                           },
@@ -54,8 +56,10 @@ class ToolBarArea extends StatelessWidget {
 
 class TeamInformationLayout extends StatelessWidget {
   TeamData teamData;
+  List<CommentData> commentList;
 
-  TeamInformationLayout({super.key, required this.teamData});
+  TeamInformationLayout(
+      {super.key, required this.teamData, required this.commentList});
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +127,12 @@ class TeamInformationLayout extends StatelessWidget {
                     startCount: teamData.score,
                     reviewCount: teamData.commentCount),
                 const SizedBox(height: 8),
-                ReviewComment(
-                    name: "王大陸",
-                    date: "2021/08/01",
-                    rating: 4.5,
-                    comment: "球場很好，團主很帥"),
+                for (var comment in commentList)
+                  ReviewComment(
+                      name: comment.userName,
+                      date: comment.date,
+                      rating: comment.rating,
+                      comment: comment.comment),
                 const Divider(),
               ],
             ))
