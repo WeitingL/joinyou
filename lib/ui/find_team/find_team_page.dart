@@ -45,11 +45,17 @@ class FindTeam extends StatelessWidget {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          TeamOperationPage(
-                                                              infoType: InfoType
-                                                                  .MasterPage,
-                                                              teamData: team)));
+                                                      builder: (context) => BlocProvider(
+                                                          create: (context) =>
+                                                              TeamOperationCubit(
+                                                                  teamData:
+                                                                      team,
+                                                                  infoType: InfoType
+                                                                      .MemberPage),
+                                                          child:
+                                                              TeamOperationPage(
+                                                                  teamData:
+                                                                      team))));
                                             },
                                             onShareTap: () {},
                                           )

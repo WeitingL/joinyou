@@ -218,19 +218,20 @@ class SecondPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          for (var i = 0; i < myTeams.length; i++)
+          for (var team in myTeams)
             TeamCard(
-                teamData: myTeams[i],
-                onTap: () {
-                  Navigator.push(
+              teamData: team,
+              onTap: () {
+                Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => TeamOperationPage(
-                            teamData: myTeams[i],
-                            infoType: InfoType.MasterPage)),
-                  );
-                },
-                onShareTap: () {})
+                        builder: (context) => BlocProvider(
+                            create: (context) => TeamOperationCubit(
+                                teamData: team, infoType: InfoType.MasterPage),
+                            child: TeamOperationPage(teamData: team))));
+              },
+              onShareTap: () {},
+            )
         ],
       ),
     );
