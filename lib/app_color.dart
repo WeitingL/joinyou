@@ -6,6 +6,8 @@ class AppColor {
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey = Color(0xFFF1F1F1);
+  static const Color blue = Color(0xFF1565C0);
+  static const Color orange = Color(0xFFFF8F00);
 
   static const Color title_bar_grey_bg = Color(0x5C3C3C43);
 

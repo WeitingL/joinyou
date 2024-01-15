@@ -60,12 +60,23 @@ class _StartArrangeState extends State<StartArrangePage> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 8,
                       mainAxisSpacing: 8,
+                      childAspectRatio: 1.4,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        RectOutlintContentArea(),
-                        RectOutlintContentArea(),
-                        RectOutlintContentArea(),
-                        RectOutlintContentArea()
+                        RectOutlineContentArea(
+                            title: "即時動態",
+                            color: AppColor.title_green,
+                            onTap: () {}),
+                        RectOutlineContentArea(
+                            title: "球隊管理", color: AppColor.blue, onTap: () {}),
+                        RectOutlineContentArea(
+                            title: "場地資訊",
+                            color: AppColor.orange,
+                            onTap: () {}),
+                        RectOutlineContentArea(
+                            title: "比賽結束",
+                            color: AppColor.tag_red,
+                            onTap: () {})
                       ])
                 ]))
           ],
@@ -105,15 +116,27 @@ class OutlineContentArea extends StatelessWidget {
   }
 }
 
-class RectOutlintContentArea extends StatelessWidget {
+class RectOutlineContentArea extends StatelessWidget {
+  String title;
+  Color color;
+  void Function()? onTap;
+
+  RectOutlineContentArea(
+      {super.key,
+      required this.title,
+      required this.color,
+      required this.onTap});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: AppColor.text_grey_E6, width: 1),
-            borderRadius: BorderRadius.circular(10)),
-        child: Center(
-            child: Text("2021/10/10 10:10",
-                style: TextStyle(color: AppColor.black, fontSize: 14))));
+    return GestureDetector(
+        onTap: onTap,
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: color, width: 1),
+                borderRadius: BorderRadius.circular(10)),
+            child: Center(
+                child: Text(title,
+                    style: TextStyle(color: color, fontSize: 20)))));
   }
 }
