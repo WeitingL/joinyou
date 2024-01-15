@@ -7,8 +7,8 @@ import '../component/comment_component.dart';
 import '../component/info_component.dart';
 import 'master/member_management.dart';
 
-class ToolBarArea extends StatelessWidget {
-  const ToolBarArea({super.key});
+class ToolBarAreaForMaster extends StatelessWidget {
+  const ToolBarAreaForMaster({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,31 @@ class ToolBarArea extends StatelessWidget {
                     ],
                 child:
                     const Icon(Icons.more_horiz_rounded, color: AppColor.white))
+          ],
+        ));
+  }
+}
+
+class ToolBarAreaForMember extends StatelessWidget {
+  const ToolBarAreaForMember({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                    color: AppColor.white)),
+            const Expanded(child: SizedBox()),
+            GestureDetector(
+                child: const Icon(Icons.chat_bubble_outline,
+                    color: AppColor.white),
+                onTap: () {})
           ],
         ));
   }
