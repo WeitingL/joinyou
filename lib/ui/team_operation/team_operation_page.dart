@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:joinyou/app_color.dart';
-import 'package:joinyou/ui/team_operation/team_infomation_page.dart';
+import 'package:joinyou/ui/team_operation/team_opt_comps.dart';
 
 import '../../data/data_team.dart';
 import '../../data/team_data_type.dart';

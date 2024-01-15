@@ -8,8 +8,9 @@ import '../../data/team_data_type.dart';
 import '../component/dialog.dart';
 import '../component/loading.dart';
 import '../component/team_card.dart';
+import '../component/title_switch_bar.dart';
 import '../current_team/current_page.dart';
-import '../team_operation/team_infomation_page.dart';
+import '../team_operation/team_opt_comps.dart';
 import '../team_operation/team_operation_page.dart';
 import 'my_team_bloc.dart';
 
@@ -34,13 +35,16 @@ class _MyTeamPage extends State<MyTeamPage> {
                       children: [
                         Column(
                           children: [
-                            SwitcherTabsArea(onPressLis: (bool isFirstPage) {
-                              if (isFirstPage) {
-                                context.read<MyTeamCubit>().getMyTeam();
-                              } else {
-                                context.read<MyTeamCubit>().getMyPlayList();
-                              }
-                            }),
+                            SwitcherBar(
+                                options: ["我的臨打", "管理球隊"],
+                                onPress: (index) {
+                                  if (index == 0) {
+                                    context.read<MyTeamCubit>().getMyTeam();
+                                  } else {
+                                    context.read<MyTeamCubit>().getMyPlayList();
+                                  }
+                                },
+                                isLoading: state is LoadingState),
                             Container(height: 20),
                             if (state is MyTeamState)
                               Expanded(child: FirstPage(myTeams: state.myTeams))
@@ -133,7 +137,7 @@ class _SwitcherTabsArea extends State<SwitcherTabsArea> {
 class SwitcherTab extends StatelessWidget {
   String title;
   bool isSelected;
-  VoidCallback onPress;
+  VoidCallback? onPress;
 
   SwitcherTab(
       {super.key,
@@ -202,8 +206,19 @@ class FirstPage extends StatelessWidget {
                         size: 18.0, color: AppColor.title_green)
                   ]))),
       // List
-      for (var i = 0; i < myTeams.length; i++)
-        TeamCard(teamData: myTeams[i], onTap: () {}, onShareTap: () {})
+      for (var team in myTeams)
+        TeamCard(
+            teamData: team,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                          create: (context) => TeamOperationCubit(
+                              teamData: team, infoType: InfoType.MemberPage),
+                          child: TeamOperationPage(teamData: team))));
+            },
+            onShareTap: () {})
     ]));
   }
 }

@@ -37,10 +37,10 @@ class _SwitcherBar extends State<SwitcherBar> {
                   child: SwitcherTab(
                       title: e,
                       isSelected: widget.options.indexOf(e) == _selectedIndex,
-                      onPress: () {
-                        if(widget.isLoading) return;
-                        _onItemTapped(widget.options.indexOf(e));
-                      })))
+                      onPress: !widget.isLoading ? () {
+                              _onItemTapped(widget.options.indexOf(e));
+                            } : null))
+          )
               .toList(),
         ));
   }
