@@ -16,10 +16,16 @@ class _MemberManagerState extends State<MemberManager> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("報名管理"),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(1.0), // 設置 Divider 的高度
+            child: Container(
+              color: Colors.grey, // Divider 的顏色
+              height: 1.0,
+            ),
+          ),
         ),
         body: Column(
           children: [
-            Divider(),
             SizedBox(height: 8),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),

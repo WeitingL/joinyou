@@ -22,13 +22,19 @@ class _CreateNormalTeam extends State<CreateNormalTeam> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("新增球隊照片"),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(1.0), // 設置 Divider 的高度
+            child: Container(
+              color: Colors.grey, // Divider 的顏色
+              height: 1.0,
+            ),
+          ),
         ),
         body: SafeArea(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Divider(),
             const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(

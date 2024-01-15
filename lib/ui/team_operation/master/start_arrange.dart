@@ -14,29 +14,34 @@ class _StartArrangeState extends State<StartArrangePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("開始排點"),
+          // title at center with left arrow to and bottom line with grey color
+          title: const Text("開始排隊"),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(1.0), // 設置 Divider 的高度
+            child: Container(
+              color: Colors.grey, // Divider 的顏色
+              height: 1.0,
+            ),
+          ),
         ),
         body: SingleChildScrollView(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Divider(),
             const SizedBox(height: 12),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(children: [
-                  OutlineContentArea(
-                      title: "排點時間", content: "2021/10/10 10:10"),
+                  OutlineContentArea(title: "即時動態", content: "查看每個場地的動態"),
                   const SizedBox(height: 24),
                   OutlineContentArea(
-                      title: "排點時間", content: "2021/10/10 10:10"),
+                      title: "球隊管理",
+                      content: "刪除隊員或新增隊員 (QR or 手動) 修改球友資訊 (場數、強度)"),
                   const SizedBox(height: 24),
-                  OutlineContentArea(
-                      title: "排點時間", content: "2021/10/10 10:10"),
+                  OutlineContentArea(title: "場地資訓", content: "修改場地數，是否已收費"),
                   const SizedBox(height: 24),
-                  OutlineContentArea(
-                      title: "排點時間", content: "2021/10/10 10:10"),
+                  OutlineContentArea(title: "比賽結束", content: "結束已計算花費點數"),
                   const SizedBox(height: 24),
                   const Row(
                     children: [

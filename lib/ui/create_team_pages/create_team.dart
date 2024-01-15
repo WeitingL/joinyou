@@ -14,13 +14,22 @@ class _CreateTeamPage extends State<CreateTeamPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: const Text("即時球隊")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("即時球隊"),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // 設置 Divider 的高度
+          child: Container(
+            color: Colors.grey, // Divider 的顏色
+            height: 1.0,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -36,9 +45,11 @@ class _CreateTeamPage extends State<CreateTeamPage> {
                     ])),
             const Spacer(),
             const Divider(),
-            BottomBarNext(content: "確認", action: () {
-              Navigator.of(context).pop();
-            })
+            BottomBarNext(
+                content: "確認",
+                action: () {
+                  Navigator.of(context).pop();
+                })
           ],
         ),
       ),

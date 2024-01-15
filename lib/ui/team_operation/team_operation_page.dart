@@ -5,6 +5,7 @@ import 'package:joinyou/ui/team_operation/team_opt_comps.dart';
 
 import '../../data/data_team.dart';
 import '../../data/team_data_type.dart';
+import 'master/start_arrange.dart';
 
 // enum InfoType { MasterPage, MemberPage }
 class TeamOperationPage extends StatefulWidget {
@@ -75,7 +76,8 @@ class BottomBarForMaster extends StatelessWidget {
             Expanded(
                 child: GestureDetector(
                     onTap: () {
-                      context.read<TeamOperationCubit>().joinTeam();
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => StartArrangePage()));
                     },
                     child: Container(
                         decoration: BoxDecoration(
