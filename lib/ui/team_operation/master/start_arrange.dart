@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
 
 import '../../../app_color.dart';
 
@@ -66,7 +67,10 @@ class _StartArrangeState extends State<StartArrangePage> {
                         RectOutlineContentArea(
                             title: "即時動態",
                             color: AppColor.title_green,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => RealTimeGame()));
+                            }),
                         RectOutlineContentArea(
                             title: "球隊管理", color: AppColor.blue, onTap: () {}),
                         RectOutlineContentArea(
