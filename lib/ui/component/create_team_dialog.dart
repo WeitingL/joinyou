@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 
+import '../../NavigationHelper.dart';
 import '../create_team_pages/create_normal_team.dart';
 import '../create_team_pages/create_team.dart';
 
-class ManageTeamDialog extends StatelessWidget {
-  const ManageTeamDialog({super.key});
+class CreateTeamDialog extends StatelessWidget {
+  const CreateTeamDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
+        onTap: () {context.pop();},
         child: AlertDialog(
             backgroundColor: AppColor.transparent,
             surfaceTintColor: AppColor.transparent,
@@ -24,11 +24,8 @@ class ManageTeamDialog extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateNormalTeam()));
+                      context.pop();
+                      context.push(NavigationHelper.CREATE_TEAM_PAGE);
                     },
                     child: Container(
                       width: 140,
@@ -47,11 +44,8 @@ class ManageTeamDialog extends StatelessWidget {
                 Container(width: 8),
                 GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateTeamPage()));
+                      context.pop();
+                      context.push(NavigationHelper.FAST_CREATE_TEAM_PAGE);
                     },
                     child: Container(
                       width: 140,

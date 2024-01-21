@@ -36,21 +36,25 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
 
   static List<MainBottomNavBarItem> mainBottomNavBarItems = [
     MainBottomNavBarItem(
-        icon: Icon(Icons.search), label: "搜尋球團", initialLocation: "/"),
+        icon: Icon(Icons.search),
+        label: "搜尋球團",
+        initialLocation: NavigationHelper.HOME_PAGE),
     MainBottomNavBarItem(
         icon: ImageIcon(AssetImage("assets/badminton.png")),
         label: "我的球團",
-        initialLocation: "/my_team"),
+        initialLocation: NavigationHelper.MY_TEAM_PAGE),
     MainBottomNavBarItem(
         icon: Icon(Icons.circle_outlined),
         label: "Logo",
-        initialLocation: "/rank"),
+        initialLocation: NavigationHelper.RANK_PAGE),
     MainBottomNavBarItem(
         icon: Icon(Icons.messenger_outline),
         label: "訊息",
-        initialLocation: "/chat"),
+        initialLocation: NavigationHelper.CHAT_PAGE),
     MainBottomNavBarItem(
-        icon: Icon(Icons.person), label: "我的帳戶", initialLocation: "/setting")
+        icon: Icon(Icons.person),
+        label: "我的帳戶",
+        initialLocation: NavigationHelper.SETTING_PAGE),
   ];
 
   @override
@@ -59,8 +63,7 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
       appBar: AppBar(
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
-          title: Text(setTitleText(_currentIndex))
-      ),
+          title: Text(setTitleText(_currentIndex))),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColor.title_green,

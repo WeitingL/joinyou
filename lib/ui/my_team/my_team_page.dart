@@ -5,14 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
+import '../../NavigationHelper.dart';
 import '../../data/team_data_type.dart';
-import '../component/dialog.dart';
+import '../component/create_team_dialog.dart';
 import '../component/loading.dart';
 import '../component/team_card.dart';
 import '../component/title_switch_bar.dart';
 import '../current_team/current_page.dart';
-import '../team_operation/team_opt_comps.dart';
-import '../team_operation/team_operation_page.dart';
 import 'my_team_bloc.dart';
 
 class MyTeamPage extends StatefulWidget {
@@ -28,8 +27,7 @@ class _MyTeamPage extends State<MyTeamPage> {
     return BlocProvider(
         create: (context) => MyTeamCubit(),
         child: BlocBuilder<MyTeamCubit, IMyTeamState>(
-            builder: (context, state) => Expanded(
-                child: Padding(
+            builder: (context, state) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Stack(
                       alignment: Alignment.center,
@@ -64,7 +62,7 @@ class _MyTeamPage extends State<MyTeamPage> {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return ManageTeamDialog();
+                                        return CreateTeamDialog();
                                       });
                                 },
                                 child: Container(
@@ -77,7 +75,7 @@ class _MyTeamPage extends State<MyTeamPage> {
                                       color: AppColor.white),
                                 )))
                       ],
-                    )))));
+                    ))));
   }
 }
 
@@ -211,7 +209,7 @@ class FirstPage extends StatelessWidget {
         TeamCard(
             teamData: team,
             onTap: () {
-              GoRouter.of(context).push("/team_operation",
+              GoRouter.of(context).push(NavigationHelper.TEAM_OPT_PAGE,
                   extra: {"teamData": team, "infoType": InfoType.MasterPage});
             },
             onShareTap: () {})

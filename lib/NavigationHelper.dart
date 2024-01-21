@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/ui/chat_room/chat_room.dart';
+import 'package:joinyou/ui/create_team_pages/create_normal_team.dart';
 import 'package:joinyou/ui/find_team/find_team_map.dart';
 import 'package:joinyou/ui/find_team/find_team_page.dart';
 import 'package:joinyou/ui/my_team/my_team_page.dart';
@@ -36,6 +37,18 @@ class NavigationHelper {
     return _instance;
   }
 
+  static const HOME_PAGE = "/";
+  static const MY_TEAM_PAGE = "/my_team";
+  static const RANK_PAGE = "/rank";
+  static const CHAT_PAGE = "/chat";
+  static const SETTING_PAGE = "/setting";
+
+  static const TEAM_OPT_PAGE = "/team_operation";
+  static const TEAM_FIND_MAP_PAGE = "/map_find_team";
+
+  static const CREATE_TEAM_PAGE = "/create_team/normal_team";
+  static const FAST_CREATE_TEAM_PAGE = "/create_team/fast_team";
+
   NavigationHelper._internal() {
     final routes = <RouteBase>[
       ShellRoute(
@@ -47,38 +60,38 @@ class NavigationHelper {
               )),
           routes: [
             GoRoute(
-              path: '/',
+              path: HOME_PAGE,
               parentNavigatorKey: _homeNavigatorKey,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: FindTeam()),
             ),
             GoRoute(
-              path: '/my_team',
+              path: MY_TEAM_PAGE,
               parentNavigatorKey: _homeNavigatorKey,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: MyTeamPage()),
             ),
             GoRoute(
-              path: '/rank',
+              path: RANK_PAGE,
               parentNavigatorKey: _homeNavigatorKey,
               pageBuilder: (context, state) =>
                   NoTransitionPage(child: RankPage()),
             ),
             GoRoute(
-              path: '/chat',
+              path: CHAT_PAGE,
               parentNavigatorKey: _homeNavigatorKey,
               pageBuilder: (context, state) =>
                   NoTransitionPage(child: ChatPage()),
             ),
             GoRoute(
-              path: '/setting',
+              path: SETTING_PAGE,
               parentNavigatorKey: _homeNavigatorKey,
               pageBuilder: (context, state) =>
                   NoTransitionPage(child: SettingPage()),
             ),
           ]),
       GoRoute(
-        path: "/team_operation",
+        path: TEAM_OPT_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?;
@@ -94,7 +107,7 @@ class NavigationHelper {
         },
       ),
       GoRoute(
-        path: "/map_find_team",
+        path: TEAM_FIND_MAP_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?;
@@ -103,6 +116,39 @@ class NavigationHelper {
           );
         },
       ),
+
+      GoRoute(
+        path: CREATE_TEAM_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: CreateNormalTeam(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: FAST_CREATE_TEAM_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: CreateNormalTeam(),
+          );
+        },
+      ),
+
+
+
+
+
+
+
+
+
+
+
     ];
 
     router = GoRouter(
