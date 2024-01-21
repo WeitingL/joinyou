@@ -26,7 +26,6 @@ class FindTeam extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(height: 24),
                       const ResearchArea(),
                       Container(height: 24),
                       const FilterBar(),
@@ -47,7 +46,7 @@ class FindTeam extends StatelessWidget {
                                               NavigationHelper.TEAM_OPT_PAGE,
                                               extra: {
                                                 "teamData": team,
-                                                "infoType": InfoType.MasterPage
+                                                "infoType": InfoType.MemberPage
                                               });
                                         },
                                         onShareTap: () {},

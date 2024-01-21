@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:joinyou/NavigationHelper.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
 
@@ -51,10 +53,7 @@ class _CreateNormalTeam extends State<CreateNormalTeam> {
             BottomBarNext(
                 content: "下一步",
                 action: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingTeamLocation()));
+                  context.push(NavigationHelper.CREATE_TEAM_LOCATION_PAGE);
                 })
           ],
         )));
@@ -118,7 +117,9 @@ class _IconImgArea extends State<IconImgArea> {
 
 class ImageEditArea extends StatefulWidget {
   File? imgFile;
+
   ImageEditArea({super.key, required this.imgFile});
+
   @override
   State<ImageEditArea> createState() => _ImageEditAreaState();
 }
@@ -129,21 +130,23 @@ class _ImageEditAreaState extends State<ImageEditArea> {
   @override
   Widget build(BuildContext context) {
     if (_imgFile == null) {
-      return GestureDetector(onTap: _pickImage,child: Container(
-        decoration: BoxDecoration(
-            color: AppColor.text_grey_E6,
-            borderRadius: BorderRadius.circular(10)),
-      ));
+      return GestureDetector(
+          onTap: _pickImage,
+          child: Container(
+            decoration: BoxDecoration(
+                color: AppColor.text_grey_E6,
+                borderRadius: BorderRadius.circular(10)),
+          ));
     } else {
       return Image.file(_imgFile!);
     }
   }
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       _imgFile = pickedFile != null ? File(pickedFile.path) : null;
     });
   }
-
 }

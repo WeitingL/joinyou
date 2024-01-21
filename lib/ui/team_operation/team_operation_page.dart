@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:joinyou/NavigationHelper.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/team_operation/team_opt_comps.dart';
 
@@ -64,7 +66,7 @@ class BottomBarForMaster extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         height: 70,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: AppColor.white,
             border: Border(
                 top: BorderSide(color: AppColor.text_grey_94, width: 1))),
@@ -74,8 +76,7 @@ class BottomBarForMaster extends StatelessWidget {
             Expanded(
                 child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => StartArrangePage()));
+                      context.push(NavigationHelper.PRE_GAME_PAGE);
                     },
                     child: Container(
                         decoration: BoxDecoration(

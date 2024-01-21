@@ -3,11 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/ui/chat_room/chat_room.dart';
 import 'package:joinyou/ui/create_team_pages/create_normal_team.dart';
+import 'package:joinyou/ui/create_team_pages/create_team.dart';
+import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
 import 'package:joinyou/ui/find_team/find_team_map.dart';
 import 'package:joinyou/ui/find_team/find_team_page.dart';
 import 'package:joinyou/ui/my_team/my_team_page.dart';
 import 'package:joinyou/ui/rank_page/center_rank_page.dart';
 import 'package:joinyou/ui/setting/setting_page.dart';
+import 'package:joinyou/ui/team_operation/master/manage_game.dart';
+import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
+import 'package:joinyou/ui/team_operation/master/start_arrange.dart';
 import 'package:joinyou/ui/team_operation/team_operation_page.dart';
 
 import 'data/data_team.dart';
@@ -47,7 +52,14 @@ class NavigationHelper {
   static const TEAM_FIND_MAP_PAGE = "/map_find_team";
 
   static const CREATE_TEAM_PAGE = "/create_team/normal_team";
+  static const CREATE_TEAM_LOCATION_PAGE = "/create_team/normal_team/location";
+
   static const FAST_CREATE_TEAM_PAGE = "/create_team/fast_team";
+
+  static const PRE_GAME_PAGE = "/master/pre_game";
+  static const REAL_TIME_PAGE = "/master/real_time_game";
+  static const MANAGE_GAME_PAGE = "/master/manage_game";
+
 
   NavigationHelper._internal() {
     final routes = <RouteBase>[
@@ -134,7 +146,51 @@ class NavigationHelper {
         pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
-            child: CreateNormalTeam(),
+            child: CreateTeamPage(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: CREATE_TEAM_LOCATION_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: SettingTeamLocation(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: PRE_GAME_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: StartArrangePage(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: REAL_TIME_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: RealTimeGame(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: MANAGE_GAME_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: ManageGame(),
           );
         },
       ),

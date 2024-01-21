@@ -61,10 +61,18 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          scrolledUnderElevation: 0,
-          backgroundColor: Colors.white,
-          title: Text(setTitleText(_currentIndex))),
-      body: widget.child,
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(setTitleText(_currentIndex)),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.0), // 設置 Divider 的高度
+          child: Container(
+            color: Colors.grey, // Divider 的顏色
+            height: 1.0,
+          ),
+        ),
+      ),
+      body: Padding(padding: const EdgeInsets.only(top: 24), child: widget.child),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColor.title_green,
         unselectedItemColor: Colors.grey,
