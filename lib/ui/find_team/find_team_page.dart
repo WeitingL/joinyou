@@ -17,8 +17,7 @@ class FindTeam extends StatelessWidget {
     return BlocProvider(
         create: (context) => TeamListCubit(),
         child: BlocBuilder<TeamListCubit, IFindTeamState>(
-            builder: (context, state) => Expanded(
-                child: Padding(
+            builder: (context, state) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Stack(alignment: Alignment.center, children: [
                       Column(
@@ -93,7 +92,7 @@ class FindTeam extends StatelessWidget {
                               ),
                             ),
                           ))
-                    ])))));
+                    ]))));
   }
 }
 
