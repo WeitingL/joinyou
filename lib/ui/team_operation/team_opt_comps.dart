@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
@@ -18,7 +19,7 @@ class ToolBarAreaForMaster extends StatelessWidget {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_rounded,
                     color: AppColor.white)),
@@ -65,7 +66,7 @@ class ToolBarAreaForMember extends StatelessWidget {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_rounded,
                     color: AppColor.white)),

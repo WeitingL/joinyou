@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/find_team/find_team_bloc.dart';
 
@@ -41,20 +42,8 @@ class FindTeam extends StatelessWidget {
                                           TeamCard(
                                             teamData: team,
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => BlocProvider(
-                                                          create: (context) =>
-                                                              TeamOperationCubit(
-                                                                  teamData:
-                                                                      team,
-                                                                  infoType: InfoType
-                                                                      .MemberPage),
-                                                          child:
-                                                              TeamOperationPage(
-                                                                  teamData:
-                                                                      team))));
+                                              GoRouter.of(context).push("/team_operation",
+                                                  extra: {"teamData": team, "infoType": InfoType.MasterPage});
                                             },
                                             onShareTap: () {},
                                           )

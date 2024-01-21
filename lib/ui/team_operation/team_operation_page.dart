@@ -9,9 +9,8 @@ import 'master/start_arrange.dart';
 
 // enum InfoType { MasterPage, MemberPage }
 class TeamOperationPage extends StatefulWidget {
-  TeamData teamData;
 
-  TeamOperationPage({super.key, required this.teamData});
+  TeamOperationPage({super.key});
 
   @override
   State<TeamOperationPage> createState() => _TeamOperationPageState();
@@ -25,9 +24,8 @@ class _TeamOperationPageState extends State<TeamOperationPage> {
         children: [
           Positioned(
               child: TeamInformationLayout(
-                  teamData: widget.teamData,
-                  commentList:
-                      context.watch<TeamOperationCubit>().commentList)),
+                  teamData: context.watch<TeamOperationCubit>().teamData,
+                  commentList: context.watch<TeamOperationCubit>().commentList)),
           Positioned(child: SafeArea(child:
               BlocBuilder<TeamOperationCubit, ITeamOperationState>(
                   builder: (context, state) {

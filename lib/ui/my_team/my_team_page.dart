@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
@@ -210,13 +211,8 @@ class FirstPage extends StatelessWidget {
         TeamCard(
             teamData: team,
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                          create: (context) => TeamOperationCubit(
-                              teamData: team, infoType: InfoType.MemberPage),
-                          child: TeamOperationPage(teamData: team))));
+              GoRouter.of(context).push("/team_operation",
+                  extra: {"teamData": team, "infoType": InfoType.MasterPage});
             },
             onShareTap: () {})
     ]));
@@ -237,13 +233,8 @@ class SecondPage extends StatelessWidget {
             TeamCard(
               teamData: team,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                            create: (context) => TeamOperationCubit(
-                                teamData: team, infoType: InfoType.MasterPage),
-                            child: TeamOperationPage(teamData: team))));
+                GoRouter.of(context).push("/team_operation",
+                    extra: {"teamData": team, "infoType": InfoType.MasterPage});
               },
               onShareTap: () {},
             )
