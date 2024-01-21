@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:joinyou/app_color.dart';
 
+import '../../component/title_switch_bar.dart';
+
 class ManageGame extends StatefulWidget {
   @override
   State<ManageGame> createState() => _ManageGameState();
 }
 
+enum ManageGameType { TeamMemberState, TeamChallenge, TeamMatchRequest }
+
 class _ManageGameState extends State<ManageGame> {
+
+  ManageGameType _manageGameType = ManageGameType.TeamMemberState;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +31,39 @@ class _ManageGameState extends State<ManageGame> {
         ),
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: TeamMatchRequestPage()));
+            child: Column(
+              children: [
+                SizedBox(height: 16),
+                SwitcherBar(
+                    options: ["球友管理", "挑戰請求", "組隊請求"],
+                    onPress: (index) {
+                      setState(() {
+                        switch (index) {
+                          case 0:
+                            _manageGameType = ManageGameType.TeamMemberState;
+                            break;
+                          case 1:
+                            _manageGameType = ManageGameType.TeamChallenge;
+                            break;
+                          case 2:
+                            _manageGameType = ManageGameType.TeamMatchRequest;
+                            break;
+                        }
+                      });
+                    },
+                    isLoading: false
+                ),
+                SizedBox(height: 16),
+                Expanded(
+                    child: _manageGameType == ManageGameType.TeamMemberState
+                        ? TeamMemberStatePage()
+                        : _manageGameType == ManageGameType.TeamChallenge
+                            ? TeamChallengePageState()
+                            : TeamMatchRequestPage()
+                )
+              ],
+            )
+        ));
   }
 }
 
@@ -52,6 +91,7 @@ class _TeamMemberStateItemState extends State<TeamMemberStateItem> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 16),
                 Text("王大陸",
                     style: TextStyle(color: AppColor.black, fontSize: 18)),
                 SizedBox(height: 8),
