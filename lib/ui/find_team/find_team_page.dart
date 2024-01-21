@@ -55,10 +55,7 @@ class FindTeam extends StatelessWidget {
                           bottom: 20,
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FindTeamByMap()));
+                              GoRouter.of(context).push("/map_find_team");
                             },
                             child: Container(
                               width: 90,

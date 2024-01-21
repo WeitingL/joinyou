@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:joinyou/app_color.dart';
 
 import '../my_team/my_team_bloc.dart';
-import 'find_team_bloc.dart';
 
 class FindTeamByMap extends StatefulWidget {
   const FindTeamByMap({super.key});
@@ -105,9 +105,7 @@ class _ToolBarArea extends State<ToolBarArea> {
             color: AppColor.transparent,
             surfaceTintColor: AppColor.transparent,
             child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
+                onTap: () {context.pop();},
                 child: Container(
                   width: 50,
                   height: 50,

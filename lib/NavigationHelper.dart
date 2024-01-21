@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/ui/chat_room/chat_room.dart';
+import 'package:joinyou/ui/find_team/find_team_map.dart';
 import 'package:joinyou/ui/find_team/find_team_page.dart';
 import 'package:joinyou/ui/my_team/my_team_page.dart';
 import 'package:joinyou/ui/rank_page/center_rank_page.dart';
@@ -89,6 +90,16 @@ class NavigationHelper {
               ),
               child: TeamOperationPage(),
             ),
+          );
+        },
+      ),
+      GoRoute(
+        path: "/map_find_team",
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: FindTeamByMap(),
           );
         },
       ),
