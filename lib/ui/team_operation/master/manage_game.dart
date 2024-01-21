@@ -12,7 +12,6 @@ class ManageGame extends StatefulWidget {
 enum ManageGameType { TeamMemberState, TeamChallenge, TeamMatchRequest }
 
 class _ManageGameState extends State<ManageGame> {
-
   ManageGameType _manageGameType = ManageGameType.TeamMemberState;
 
   @override
@@ -51,19 +50,25 @@ class _ManageGameState extends State<ManageGame> {
                         }
                       });
                     },
-                    isLoading: false
-                ),
+                    isLoading: false),
                 SizedBox(height: 16),
                 Expanded(
                     child: _manageGameType == ManageGameType.TeamMemberState
                         ? TeamMemberStatePage()
                         : _manageGameType == ManageGameType.TeamChallenge
                             ? TeamChallengePageState()
-                            : TeamMatchRequestPage()
-                )
+                            : TeamMatchRequestPage())
               ],
-            )
-        ));
+            )),
+        // if _manageGameType is TeamMemberState, circular floatingActionButton with plus will show
+        floatingActionButton: _manageGameType == ManageGameType.TeamMemberState
+            ? FloatingActionButton(
+                onPressed: () {},
+                shape: CircleBorder(),
+                child: Icon(Icons.add, color: AppColor.white),
+                backgroundColor: AppColor.title_green,
+              )
+            : null);
   }
 }
 
@@ -419,7 +424,6 @@ class _TeamMatchRequestItemState extends State<TeamMatchRequestItem> {
       ],
     );
   }
-
 }
 
 // TeamMatchRequestPage ----------
