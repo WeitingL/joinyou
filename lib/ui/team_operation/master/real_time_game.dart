@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app_color.dart';
+import '../../component/edit_components.dart';
 
 class RealTimeGame extends StatefulWidget {
   const RealTimeGame({super.key});
@@ -55,25 +56,26 @@ class _RealTimeGameState extends State<RealTimeGame> {
                 ],
               ),
               Container(
-                height: 50,
+                  height: 50,
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColor.title_green, width: 1),
                       borderRadius: BorderRadius.circular(10)),
                   child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.horizontal,
                       child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      // Used for loop to create the Text with name and spacer between 10.
-                      for (var i = 0; i < 10; i++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text("玩家 $i",
-                              style: const TextStyle(
-                                  color: AppColor.black, fontSize: 14)),
-                        )
-                    ],
-                  ))),
+                        children: [
+                          const SizedBox(width: 10),
+                          // Used for loop to create the Text with name and spacer between 10.
+                          for (var i = 0; i < 10; i++)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text("玩家 $i",
+                                  style: const TextStyle(
+                                      color: AppColor.black, fontSize: 14)),
+                            )
+                        ],
+                      ))),
             ],
           ),
         ));
@@ -115,7 +117,7 @@ class _PlayGroundLayoutState extends State<PlayGroundLayout> {
             child: Row(
               children: [
                 OutlinedButton(
-                  onPressed: null,
+                  onPressed: _showChangePlayerDialog,
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
@@ -165,6 +167,117 @@ class _PlayGroundLayoutState extends State<PlayGroundLayout> {
             ],
           ),
         ))
+      ],
+    );
+  }
+
+  // show a dialog to change the player in that game, the UI includes the current player and the player with text.
+  void _showChangePlayerDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColor.white,
+            surfaceTintColor: AppColor.white,
+            content: Container(
+                height: 330, child: Center(child: ChangePlayerDialog())),
+          );
+        });
+  }
+}
+
+class ChangePlayerDialog extends StatelessWidget {
+  const ChangePlayerDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "更換球友(場地Ａ)",
+          style: TextStyle(fontSize: 18, color: AppColor.black),
+        ),
+        Text("請選擇替換球友以及被替換球友",
+            style: TextStyle(fontSize: 16, color: AppColor.text_grey_94)),
+        SizedBox(height: 10),
+        DropDownSelected(
+          title: "被更換球友",
+          dropTitle: "請選擇球友",
+          onChanged: (value) {},
+          items: [
+            DropdownMenuItem(
+              child: Text("選手1"),
+              value: 1,
+            ),
+            DropdownMenuItem(
+              child: Text("選手2"),
+              value: 2,
+            ),
+            DropdownMenuItem(
+              child: Text("選手3"),
+              value: 3,
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        DropDownSelected(
+          title: "替換球友",
+          dropTitle: "請選擇球友",
+          onChanged: (value) {},
+          items: [
+            DropdownMenuItem(
+              child: Text("選手1"),
+              value: 1,
+            ),
+            DropdownMenuItem(
+              child: Text("選手2"),
+              value: 2,
+            ),
+            DropdownMenuItem(
+              child: Text("選手3"),
+              value: 3,
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+                child: OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                side: const BorderSide(color: AppColor.blue),
+              ),
+              child: const Text("自動替換",
+                  style: TextStyle(
+                      color: AppColor.blue,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
+            )),
+            const SizedBox(width: 8),
+            Expanded(
+                child: OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                backgroundColor: AppColor.title_green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                side: const BorderSide(color: AppColor.title_green),
+              ),
+              child: const Text("確定更換",
+                  style: TextStyle(
+                      color: AppColor.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
+            )),
+          ],
+        )
       ],
     );
   }
