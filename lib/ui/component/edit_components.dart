@@ -5,9 +5,15 @@ import 'package:joinyou/app_color.dart';
 class DropDownSelected extends StatefulWidget {
   String title;
   String dropTitle;
-  List<DropdownMenuItem> items = [];
+  List<DropdownMenuItem<int>> items = [];
+  Function(int?) onChanged;
 
-  DropDownSelected({super.key, required this.title, required this.dropTitle});
+  DropDownSelected(
+      {super.key,
+      required this.title,
+      required this.dropTitle,
+      required this.items,
+      required this.onChanged});
 
   @override
   State<StatefulWidget> createState() => _DropDownSelected();
@@ -28,15 +34,15 @@ class _DropDownSelected extends State<DropDownSelected> {
             )),
         DropdownButtonFormField(
           hint: Text(widget.dropTitle,
-              style: const TextStyle(color: AppColor.text_grey_94, fontSize: 18)),
+              style:
+                  const TextStyle(color: AppColor.text_grey_94, fontSize: 18)),
           icon: const Icon(Icons.expand_more),
           style: const TextStyle(
               backgroundColor: AppColor.transparent, color: AppColor.black),
-          items: const [
-            DropdownMenuItem(child: Text("1"), value: 1),
-            DropdownMenuItem(child: Text("2"), value: 2)
-          ],
-          onChanged: (int? value) {},
+          items: widget.items,
+          onChanged: (int? value) {
+            widget.onChanged(value);
+          },
           decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -52,8 +58,13 @@ class _DropDownSelected extends State<DropDownSelected> {
 class EditNumContentArea extends StatefulWidget {
   String title;
   String hintTitle;
+  Function(String) onChanged;
 
-  EditNumContentArea({super.key, required this.title, required this.hintTitle});
+  EditNumContentArea(
+      {super.key,
+      required this.title,
+      required this.hintTitle,
+      required this.onChanged});
 
   @override
   State<StatefulWidget> createState() => _EditNumContentArea();
@@ -73,6 +84,7 @@ class _EditNumContentArea extends State<EditNumContentArea> {
               style: const TextStyle(fontSize: 18),
             )),
         TextField(
+          onChanged: widget.onChanged,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
@@ -90,7 +102,8 @@ class EditTextContentArea extends StatefulWidget {
   String title;
   String hintTitle;
 
-  EditTextContentArea({super.key, required this.title, required this.hintTitle});
+  EditTextContentArea(
+      {super.key, required this.title, required this.hintTitle});
 
   @override
   State<StatefulWidget> createState() => _EditTextContentArea();
@@ -116,7 +129,7 @@ class _EditTextContentArea extends State<EditTextContentArea> {
               hintText: widget.hintTitle,
               hintStyle: TextStyle(color: AppColor.text_grey_94),
               border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         )
       ],
     );

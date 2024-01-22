@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:joinyou/NavigationHelper.dart';
 import 'package:joinyou/app_color.dart';
 
 import '../../component/title_switch_bar.dart';
@@ -63,7 +65,9 @@ class _ManageGameState extends State<ManageGame> {
         // if _manageGameType is TeamMemberState, circular floatingActionButton with plus will show
         floatingActionButton: _manageGameType == ManageGameType.TeamMemberState
             ? FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.push(NavigationHelper.ADD_NEW_GAMER_PAGE);
+                },
                 shape: CircleBorder(),
                 child: Icon(Icons.add, color: AppColor.white),
                 backgroundColor: AppColor.title_green,

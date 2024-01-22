@@ -43,7 +43,7 @@ class BottomBarCenterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 60,
+        height: 75,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +57,7 @@ class BottomBarCenterButton extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     //width is the screen width
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: 40,
+                    height: 50,
                     child: Center(
                         child: Text(content,
                             style: const TextStyle(

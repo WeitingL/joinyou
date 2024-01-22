@@ -37,9 +37,19 @@ class _CreateTeamPage extends State<CreateTeamPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 20),
-                      DropDownSelected(title: "場地數", dropTitle: "請選擇場地數"),
+                      DropDownSelected(
+                        title: "場地數",
+                        dropTitle: "請選擇場地數",
+                        items: [],
+                        onChanged: (int) {},
+                      ),
                       SizedBox(height: 20),
-                      EditNumContentArea(title: "打球時長", hintTitle: "請輸入打球時長"),
+                      EditNumContentArea(
+                          title: "打球時長",
+                          hintTitle: "請輸入打球時長",
+                          onChanged: (int) {
+                            print(int);
+                          }),
                       SizedBox(height: 20),
                       LeaderSelector(),
                     ])),

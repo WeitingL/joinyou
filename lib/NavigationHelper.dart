@@ -10,6 +10,7 @@ import 'package:joinyou/ui/find_team/find_team_page.dart';
 import 'package:joinyou/ui/my_team/my_team_page.dart';
 import 'package:joinyou/ui/rank_page/center_rank_page.dart';
 import 'package:joinyou/ui/setting/setting_page.dart';
+import 'package:joinyou/ui/team_operation/master/add_new_gamer.dart';
 import 'package:joinyou/ui/team_operation/master/manage_game.dart';
 import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
 import 'package:joinyou/ui/team_operation/master/start_arrange.dart';
@@ -59,6 +60,7 @@ class NavigationHelper {
   static const PRE_GAME_PAGE = "/master/pre_game";
   static const REAL_TIME_PAGE = "/master/real_time_game";
   static const MANAGE_GAME_PAGE = "/master/manage_game";
+  static const ADD_NEW_GAMER_PAGE = "/master/add_new_gamer";
 
 
   NavigationHelper._internal() {
@@ -191,6 +193,17 @@ class NavigationHelper {
           final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
             child: ManageGame(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: ADD_NEW_GAMER_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: AddNewGamePlayer(),
           );
         },
       ),
