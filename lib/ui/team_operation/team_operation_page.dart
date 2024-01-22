@@ -5,9 +5,7 @@ import 'package:joinyou/NavigationHelper.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/team_operation/team_opt_comps.dart';
 
-import '../../data/data_team.dart';
 import '../../data/team_data_type.dart';
-import 'master/start_arrange.dart';
 
 // enum InfoType { MasterPage, MemberPage }
 class TeamOperationPage extends StatefulWidget {
@@ -125,7 +123,7 @@ class BottomBarForMember extends StatelessWidget {
             Expanded(
                 child: GestureDetector(
                     onTap: () {
-                      context.read<TeamOperationCubit>().joinTeam();
+                      GoRouter.of(context).push(NavigationHelper.READY_TO_GO_PAGE);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -174,7 +172,7 @@ class BottomBarForMemberJoined extends StatelessWidget {
             Expanded(
                 child: GestureDetector(
                     onTap: () {
-                      context.read<TeamOperationCubit>().leaveTeam();
+                      GoRouter.of(context).push(NavigationHelper.READY_TO_GO_PAGE);
                     },
                     child: Container(
                         decoration: BoxDecoration(
