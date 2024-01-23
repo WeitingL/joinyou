@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../NavigationHelper.dart';
 import '../../../app_color.dart';
 import '../../component/bottom_bar.dart';
 import '../../component/loading.dart';
@@ -14,7 +15,6 @@ class GameLoadingPage extends StatefulWidget {
 }
 
 class _GameLoadingPageState extends State<GameLoadingPage> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -43,28 +43,28 @@ class _GameLoadingPageState extends State<GameLoadingPage> {
                         ...[
                           BlocBuilder<GameLoadingCubit, GameLoadingState>(
                               builder: (context, state) {
-                                if (state is GameLoading) {
-                                  return Text(
-                                      "尚有${state.alreadyInQueue}人在列隊中",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppColor.title_green));
-                                } else {
-                                  print("state is not GameLoading");
-                                  return const SizedBox(); // empty
-                                }
-                              }
-                          )
+                            if (state is GameLoading) {
+                              return Text("尚有${state.alreadyInQueue}人在列隊中",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColor.title_green));
+                            } else {
+                              Future.delayed(Duration.zero, () {
+                                GoRouter.of(context).pushReplacement(
+                                    NavigationHelper.GAME_END_PAGE);
+                              });
+                              return Container();
+                            }
+                          })
                         ]
-
                       ],
                     ))),
             bottomNavigationBar: SafeArea(
                 child: BottomBarCenterButton(
-                  action: () {
-                    context.pop();
-                  },
-                  content: "取消",
-                ))));
+              action: () {
+                context.pop();
+              },
+              content: "取消",
+            ))));
   }
 }

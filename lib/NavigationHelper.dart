@@ -16,6 +16,7 @@ import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
 import 'package:joinyou/ui/team_operation/master/start_arrange.dart';
 import 'package:joinyou/ui/team_operation/member/already_to_go_page.dart';
 import 'package:joinyou/ui/team_operation/member/challenge_page.dart';
+import 'package:joinyou/ui/team_operation/member/game_end_page.dart';
 import 'package:joinyou/ui/team_operation/member/game_loaging.dart';
 import 'package:joinyou/ui/team_operation/member/team_mamber_page.dart';
 import 'package:joinyou/ui/team_operation/member/team_match_page.dart';
@@ -72,6 +73,7 @@ class NavigationHelper {
   static const MATCH_TEAM_PAGE = "/member/match_team";
   static const MEMBER_LIST_PAGE = "/member/member_list";
   static const GAME_LOADING_PAGE = "/member/loading";
+  static const GAME_END_PAGE = "/member/game_end";
 
 
   NavigationHelper._internal() {
@@ -270,6 +272,17 @@ class NavigationHelper {
           final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
             child: GameLoadingPage(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: GAME_END_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: GameEndPage(),
           );
         },
       ),

@@ -126,7 +126,7 @@ class _AlreadyToGoState extends State<AlreadyToGo> {
                     RectOutlineContentArea(
                         title: "開始", color: AppColor.title_green, onTap: () {
                       GoRouter.of(context)
-                          .push(NavigationHelper.GAME_LOADING_PAGE);
+                          .replace(NavigationHelper.GAME_LOADING_PAGE);
                     }),
                     RectOutlineContentArea(
                         title: "組隊",
