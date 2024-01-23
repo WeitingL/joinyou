@@ -124,7 +124,10 @@ class _AlreadyToGoState extends State<AlreadyToGo> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     RectOutlineContentArea(
-                        title: "開始", color: AppColor.title_green, onTap: () {}),
+                        title: "開始", color: AppColor.title_green, onTap: () {
+                      GoRouter.of(context)
+                          .push(NavigationHelper.GAME_LOADING_PAGE);
+                    }),
                     RectOutlineContentArea(
                         title: "組隊",
                         color: AppColor.blue,
