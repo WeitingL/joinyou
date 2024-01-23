@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../NavigationHelper.dart';
 import '../../../app_color.dart';
 import '../master/start_arrange.dart';
 
@@ -39,75 +41,78 @@ class _AlreadyToGoState extends State<AlreadyToGo> {
               const SizedBox(height: 12),
               Divider(),
               const SizedBox(height: 12),
+              GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context)
+                        .push(NavigationHelper.MEMBER_LIST_PAGE);
+                  },
+                  child: Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: AppColor.text_grey_E6, width: 1),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                      ),
+                      child: Row(
+                        children: [
+                          Text("查看報名清單"),
+                          Expanded(child: SizedBox()),
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ))),
               Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.text_grey_E6, width: 1),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                ),
-                child: Row(
-                  children: [
-                    Text("查看報名清單"),
-                    Expanded(child: SizedBox()),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                ),
-              ),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.text_grey_E6, width: 1),
+                  ),
+                  child: Row(
+                    children: [
+                      Text("隊內即時排名"),
+                      Expanded(child: SizedBox()),
+                      Text("排名20"),
+                      SizedBox(width: 12),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  )),
               Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.text_grey_E6, width: 1),
-                ),
-                child: Row(
-                  children: [
-                    Text("隊內即時排名"),
-                    Expanded(child: SizedBox()),
-                    Text("排名20"),
-                    SizedBox(width: 12),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                ),
-              ),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: AppColor.text_grey_E6, width: 1)),
+                  child: Row(
+                    children: [
+                      Text("離開當前隊伍"),
+                      Expanded(child: SizedBox()),
+                      Text("尚無隊伍"),
+                      SizedBox(width: 12),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  )),
               Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.text_grey_E6, width: 1)),
-                child: Row(
-                  children: [
-                    Text("離開當前隊伍"),
-                    Expanded(child: SizedBox()),
-                    Text("尚無隊伍"),
-                    SizedBox(width: 12),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                ),
-              ),
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.text_grey_E6, width: 1),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                ),
-                child: Row(
-                  children: [
-                    Text("啟用積分功能"),
-                    Expanded(child: SizedBox()),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                ),
-              ),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.text_grey_E6, width: 1),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
+                  ),
+                  child: Row(
+                    children: [
+                      Text("啟用積分功能"),
+                      Expanded(child: SizedBox()),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  )),
               const SizedBox(height: 12),
               Divider(),
               const SizedBox(height: 12),
@@ -121,9 +126,19 @@ class _AlreadyToGoState extends State<AlreadyToGo> {
                     RectOutlineContentArea(
                         title: "開始", color: AppColor.title_green, onTap: () {}),
                     RectOutlineContentArea(
-                        title: "組隊", color: AppColor.blue, onTap: () {}),
+                        title: "組隊",
+                        color: AppColor.blue,
+                        onTap: () {
+                          GoRouter.of(context)
+                              .push(NavigationHelper.MATCH_TEAM_PAGE);
+                        }),
                     RectOutlineContentArea(
-                        title: "挑戰", color: AppColor.orange, onTap: () {}),
+                        title: "挑戰",
+                        color: AppColor.orange,
+                        onTap: () {
+                          GoRouter.of(context)
+                              .push(NavigationHelper.CHALLENG_PAGE);
+                        }),
                   ])
             ],
           ),

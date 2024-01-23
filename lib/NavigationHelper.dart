@@ -15,6 +15,9 @@ import 'package:joinyou/ui/team_operation/master/manage_game.dart';
 import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
 import 'package:joinyou/ui/team_operation/master/start_arrange.dart';
 import 'package:joinyou/ui/team_operation/member/already_to_go_page.dart';
+import 'package:joinyou/ui/team_operation/member/challenge_page.dart';
+import 'package:joinyou/ui/team_operation/member/team_mamber_page.dart';
+import 'package:joinyou/ui/team_operation/member/team_match_page.dart';
 import 'package:joinyou/ui/team_operation/team_operation_page.dart';
 
 import 'data/data_team.dart';
@@ -64,6 +67,9 @@ class NavigationHelper {
   static const ADD_NEW_GAMER_PAGE = "/master/add_new_gamer";
 
   static const READY_TO_GO_PAGE = "/member/already_to_go";
+  static const CHALLENG_PAGE = "/member/challenge_page";
+  static const MATCH_TEAM_PAGE = "/member/match_team";
+  static const MEMBER_LIST_PAGE = "/member/member_list";
 
 
   NavigationHelper._internal() {
@@ -222,6 +228,38 @@ class NavigationHelper {
         },
       ),
 
+      GoRoute(
+        path: CHALLENG_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: ChallengePage(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: MATCH_TEAM_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: TeamMatchPage(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: MEMBER_LIST_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return NoTransitionPage(
+            child: TeamMemberListPage(),
+          );
+        },
+      ),
 
 
 
