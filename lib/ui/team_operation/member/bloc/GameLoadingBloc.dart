@@ -1,8 +1,10 @@
 // Create an instance of GameLoadingBloc to use in the UI
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GameLoadingBloc extends Cubit<GameLoadingState> {
-  GameLoadingBloc() : super(GameLoading(alreadyInQueue: 0));
+class GameLoadingCubit extends Cubit<GameLoadingState> {
+  GameLoadingCubit() : super(GameLoading(alreadyInQueue: 0)){
+    startLoading();
+  }
 
   int alreadyInQueue = 0;
 
@@ -11,7 +13,7 @@ class GameLoadingBloc extends Cubit<GameLoadingState> {
     await Future.delayed(const Duration(milliseconds: 500));
     emit(GameLoading(alreadyInQueue: alreadyInQueue));
     alreadyInQueue ++;
-    await Future.delayed(const Duration(seconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     alreadyInQueue ++;
     emit(GameLoading(alreadyInQueue: alreadyInQueue));
     await Future.delayed(const Duration(seconds: 1));
