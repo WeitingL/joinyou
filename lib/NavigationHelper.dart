@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:joinyou/ui/chat_room/chat_room.dart';
 import 'package:joinyou/ui/create_team_pages/create_normal_team.dart';
 import 'package:joinyou/ui/create_team_pages/create_normal_team_info_a.dart';
 import 'package:joinyou/ui/create_team_pages/create_normal_team_info_b.dart';
 import 'package:joinyou/ui/create_team_pages/create_team.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
+import 'package:joinyou/ui/create_team_pages/set_team_location_full.dart';
 import 'package:joinyou/ui/current_team/current_page.dart';
 import 'package:joinyou/ui/find_team/find_team_map.dart';
 import 'package:joinyou/ui/find_team/find_team_page.dart';
@@ -67,6 +69,8 @@ class NavigationHelper {
 
   static const CREATE_TEAM_PAGE = "/create_team/normal_team";
   static const CREATE_TEAM_LOCATION_PAGE = "/create_team/normal_team/location";
+  static const CREATE_TEAM_LOCATION_MAP_PAGE =
+      "/create_team/normal_team/location_map";
   static const CREATE_TEAM_PAGE_A = "/create_team/pageA";
   static const CREATE_TEAM_PAGE_B = "/create_team/pageB";
 
@@ -83,7 +87,6 @@ class NavigationHelper {
   static const MEMBER_LIST_PAGE = "/member/member_list";
   static const GAME_LOADING_PAGE = "/member/loading";
   static const GAME_END_PAGE = "/member/game_end";
-
 
   NavigationHelper._internal() {
     final routes = <RouteBase>[
@@ -152,7 +155,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: CREATE_TEAM_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -163,7 +165,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: MY_TEAM_MEMBER_MANAGE_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -173,7 +174,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: MY_TEAM_INSTANT_PLAY_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -183,29 +183,33 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: FAST_CREATE_TEAM_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
             child: CreateTeamPage(),
           );
         },
       ),
-
       GoRoute(
         path: CREATE_TEAM_LOCATION_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
             child: SettingTeamLocation(),
           );
         },
       ),
-
+      GoRoute(
+        path: CREATE_TEAM_LOCATION_MAP_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: FullMapLocationSetting(),
+          );
+        },
+      ),
       GoRoute(
         path: CREATE_TEAM_PAGE_A,
         parentNavigatorKey: _rootNavigatorKey,
@@ -215,7 +219,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: CREATE_TEAM_PAGE_B,
         parentNavigatorKey: _rootNavigatorKey,
@@ -225,7 +228,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: PRE_GAME_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -236,7 +238,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: REAL_TIME_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -247,7 +248,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: MANAGE_GAME_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -258,7 +258,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: ADD_NEW_GAMER_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -269,7 +268,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: READY_TO_GO_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -280,7 +278,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: CHALLENG_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -291,7 +288,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: MATCH_TEAM_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -302,7 +298,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: MEMBER_LIST_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -313,7 +308,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: GAME_LOADING_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -324,7 +318,6 @@ class NavigationHelper {
           );
         },
       ),
-
       GoRoute(
         path: GAME_END_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
@@ -335,15 +328,6 @@ class NavigationHelper {
           );
         },
       ),
-
-
-
-
-
-
-
-
-
     ];
 
     router = GoRouter(

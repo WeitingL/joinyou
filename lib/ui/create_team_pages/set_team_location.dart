@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location_full.dart';
 
@@ -9,13 +12,15 @@ import '../component/bottom_bar.dart';
 import '../component/edit_components.dart';
 
 class SettingTeamLocation extends StatefulWidget {
-  const SettingTeamLocation({super.key});
+  SettingTeamLocation({super.key});
 
   @override
   State<StatefulWidget> createState() => _SettingTeamLocation();
 }
 
 class _SettingTeamLocation extends State<SettingTeamLocation> {
+  LatLng? _position;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,20 +43,34 @@ class _SettingTeamLocation extends State<SettingTeamLocation> {
               color: AppColor.text_grey_94,
               child: Stack(
                 children: [
+                  Positioned(child: MapWidget(position: _position)),
                   Positioned(
                       left: 0,
                       right: 0,
                       bottom: 20,
                       child: Center(
                           child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FullMapLocationSetting()));
+                              onTap: () async {
+                                LatLng? position = await context.push(
+                                    NavigationHelper
+                                        .CREATE_TEAM_LOCATION_MAP_PAGE);
+
+                                if (position != null) {
+                                  setState(() {
+                                    _position = position;
+                                  });
+                                }
                               },
-                              child: const Text("球隊位置"))))
+                              child: Container(
+                                  height: 30,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.black,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                      child: Text("球隊位置",
+                                          style: TextStyle(
+                                              color: AppColor.white)))))))
                 ],
               ),
             ),
@@ -72,9 +91,74 @@ class _SettingTeamLocation extends State<SettingTeamLocation> {
             BottomBarNext(
                 content: "下一步",
                 action: () {
-                  GoRouter.of(context).push(NavigationHelper.CREATE_TEAM_PAGE_A);
+                  GoRouter.of(context)
+                      .push(NavigationHelper.CREATE_TEAM_PAGE_A);
                 })
           ],
         )));
+  }
+}
+
+class MapWidget extends StatefulWidget {
+  final LatLng? position;
+
+  MapWidget({Key? key, this.position}) : super(key: key);
+
+  @override
+  _MapWidgetState createState() => _MapWidgetState();
+}
+
+class _MapWidgetState extends State<MapWidget> {
+  late GoogleMapController _mapController;
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double mapHeight = screenHeight / 3;
+
+    return Container(
+      height: mapHeight,
+      child: GoogleMap(
+        rotateGesturesEnabled: false,
+        scrollGesturesEnabled: false,
+        zoomControlsEnabled: false,
+        zoomGesturesEnabled: false,
+        tiltGesturesEnabled: false,
+        myLocationButtonEnabled: false,
+        initialCameraPosition: getInitialCameraPosition(widget.position),
+        markers: {
+          Marker(
+            markerId: MarkerId('current'),
+            position: widget.position ?? LatLng(25.033142, 121.564212),
+          ),
+        },
+        onMapCreated: (controller) {
+          _mapController = controller;
+        },
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant MapWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.position != oldWidget.position) {
+      _updateCameraPosition(widget.position);
+    }
+  }
+
+  CameraPosition getInitialCameraPosition(LatLng? position) {
+    return CameraPosition(
+      target: position ?? LatLng(25.033142, 121.564212),
+      zoom: 15,
+    );
+  }
+
+  void _updateCameraPosition(LatLng? position) {
+    if (position != null) {
+      _mapController.animateCamera(
+        CameraUpdate.newLatLng(position),
+      );
+    }
   }
 }
