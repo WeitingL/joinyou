@@ -7,7 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
+import '../../NavigationHelper.dart';
+import '../../data/data_team.dart';
+import '../../data/team_data_type.dart';
+import '../component/bottom_bar.dart';
 import '../my_team/my_team_bloc.dart';
 
 class FindTeamByMap extends StatefulWidget {
@@ -23,7 +28,8 @@ class _FindTeamByMap extends State<FindTeamByMap>
   late GoogleMapController _mapController;
   late Position _currentPosition;
 
-  bool _showDetail = true;
+  List<TeamData> teamList = [TeamData()];
+  bool _showDetail = false;
 
   @override
   void initState() {
@@ -84,14 +90,17 @@ class _FindTeamByMap extends State<FindTeamByMap>
             markerId: MarkerId("1"),
             position: LatLng(25.033142, 121.564212),
             onTap: () {
-              _showBottomPage(); // 在点击标记时显示底部页面
+              _showBottomPage("台北市南港區三重路19-2號", "每人每小時 100 元"); // 在点击标记时显示底部页面
+              setState(() {
+                _showDetail = !_showDetail;
+              });
             },
           )
         },
       ),
       floatingActionButton: Container(
           padding: _showDetail
-              ? const EdgeInsets.only(bottom: 100)
+              ? const EdgeInsets.only(bottom: 200)
               : const EdgeInsets.only(bottom: 0),
           child: FloatingActionButton(
             backgroundColor: AppColor.white,
@@ -102,13 +111,14 @@ class _FindTeamByMap extends State<FindTeamByMap>
     );
   }
 
-  void _showBottomPage() {
+  void _showBottomPage(String location, String fees) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.35,
+          heightFactor: 0.40,
           widthFactor: 1.0,
           child: Container(
             decoration: BoxDecoration(
@@ -118,107 +128,75 @@ class _FindTeamByMap extends State<FindTeamByMap>
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    width: 100.0,
-                    height: 10.0,
+                // bar
+                Container(
+                  height: 4,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2.0),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.all(2.0),
-                    child: Text(
-                      "球團地址:",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.all(2.0),
-                    child: Text(
-                      "地址:",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.all(2.0),
-                    child: Text(
-                      "收費方式",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0), // 加入一些垂直間距
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.all(2.0),
-                    child: Text(
-                      "費用:",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Spacer(),
-                Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(
-                        Size(300.0, 40.0),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.green),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(10.0)), // 設定為長方形，即無圓角
-                        ),
-                      ), // 設定固定大小
-                    ),
-                    onPressed: () {
-                      print("object");
-                      Navigator.pop(context);
-                      // 按鈕被點擊時的處理邏輯
+                SizedBox(height: 30),
+                // info area
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("球團資訊",
+                            style: TextStyle(
+                                fontSize: 18, color: AppColor.title_green)),
+                        SizedBox(height: 8),
+                        Text(location, style: TextStyle(fontSize: 18)),
+                        SizedBox(height: 20),
+                        Text("收費方式",
+                            style: TextStyle(
+                                fontSize: 18, color: AppColor.title_green)),
+                        SizedBox(height: 8),
+                        Text(fees, style: TextStyle(fontSize: 18)),
+                      ],
+                    )),
+
+                SizedBox(height: 20),
+                BottomBarCenterButton(
+                    action: () {
+                      GoRouter.of(context).pushReplacement(
+                          NavigationHelper.TEAM_OPT_PAGE,
+                          extra: {
+                            "teamData": teamList[0], //TODO
+                            "infoType": InfoType.MemberPage
+                          });
+                      context.pop();
                     },
-                    child: Text(
-                      "球隊報名",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                    content: "球隊報名")
               ],
             ),
+          ),
+        );
+      },
+    ).then((value) {
+      setState(() {
+        _showDetail = false;
+      });
+    });
+  }
+}
+
+class BottomSheetArea extends StatelessWidget {
+  const BottomSheetArea({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomSheet(
+      onClosing: () {},
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          color: Colors.amber,
+          child: Center(
+            child: Text('BottomSheet'),
           ),
         );
       },
@@ -317,14 +295,14 @@ class _ToolBarArea extends State<ToolBarArea> {
                   GestureDetector(
                     onTap: () => _selectDate(context),
                     child: Container(
-                      width: 70,
+                      width: 100,
                       height: 40,
                       decoration: BoxDecoration(
                         border:
                             Border.all(color: AppColor.title_green, width: 2),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: const Row(
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -332,7 +310,8 @@ class _ToolBarArea extends State<ToolBarArea> {
                               color: AppColor.title_green),
                           SizedBox(width: 4),
                           Text(
-                            "5/1",
+                            formatDate(
+                                (selectedDate ?? DateTime.now()).toString()),
                             style: TextStyle(color: AppColor.title_green),
                           ),
                         ],
@@ -342,5 +321,16 @@ class _ToolBarArea extends State<ToolBarArea> {
                 ])))
       ],
     );
+  }
+
+  String formatDate(String dateString) {
+    // 将字符串解析为日期时间对象
+    DateTime dateTime = DateTime.parse(dateString);
+
+    // 使用 DateFormat 格式化日期，将其转换为指定格式
+    DateFormat formatter = DateFormat('MM-dd');
+    String formattedDate = formatter.format(dateTime);
+
+    return formattedDate;
   }
 }
