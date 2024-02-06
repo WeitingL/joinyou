@@ -102,7 +102,12 @@ class _ImageAreaState extends State<ImageArea> {
                   },
                 );
               },
-              child: Icon(Icons.photo, color: Colors.grey),
+              child: Container(
+                  width: widget.width,
+                  height: widget.height,
+                  color: Colors.transparent,
+                  child: Icon(Icons.photo, color: Colors.grey)
+              ),
             ),
     );
   }
