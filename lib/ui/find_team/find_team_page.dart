@@ -26,6 +26,7 @@ class FindTeam extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Container(height: 24),
                       const ResearchArea(),
                       Container(height: 24),
                       const FilterBar(),

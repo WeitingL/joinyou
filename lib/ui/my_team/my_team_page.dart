@@ -34,6 +34,7 @@ class _MyTeamPage extends State<MyTeamPage> {
                       children: [
                         Column(
                           children: [
+                            Container(height: 24),
                             SwitcherBar(
                                 options: ["我的臨打", "管理球隊"],
                                 onPress: (index) {

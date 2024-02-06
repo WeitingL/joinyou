@@ -72,7 +72,7 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
           ),
         ),
       ),
-      body: Padding(padding: const EdgeInsets.only(top: 24), child: widget.child),
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColor.title_green,
         unselectedItemColor: Colors.grey,
