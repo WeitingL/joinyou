@@ -40,7 +40,13 @@ class _CreateTeamPage extends State<CreateTeamPage> {
                       DropDownSelected(
                         title: "場地數",
                         dropTitle: "請選擇場地數",
-                        items: [],
+                        items: [
+                          for (int i = 1; i <= 9; i++)
+                            DropdownMenuItem(
+                              value: i,
+                              child: Text(i.toString()),
+                            )
+                        ],
                         onChanged: (int) {},
                       ),
                       SizedBox(height: 20),

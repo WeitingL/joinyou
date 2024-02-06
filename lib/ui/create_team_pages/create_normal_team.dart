@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:joinyou/NavigationHelper.dart';
 import 'package:joinyou/app_color.dart';
+import 'package:joinyou/ui/component/image_area.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
 
 import '../component/bottom_bar.dart';
@@ -68,6 +69,7 @@ class TitleImgArea extends StatefulWidget {
 }
 
 class _TitleImgArea extends State<TitleImgArea> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -76,9 +78,12 @@ class _TitleImgArea extends State<TitleImgArea> {
       children: [
         Text("封面照片"),
         SizedBox(height: 10),
-        Container(
-          height: 120,
-          child: ImageEditArea(imgFile: null),
+        ImageArea(
+          imageUrl: null,
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          onImageSelected: (file) {},
+          enable: true,
         ),
         SizedBox(height: 10),
         Text("圖檔僅接受 PNG 和 JPG 且檔案大小不可超過 5 MB")
@@ -103,10 +108,12 @@ class _IconImgArea extends State<IconImgArea> {
       children: [
         Text("封面照片"),
         SizedBox(height: 10),
-        Container(
+        ImageArea(
+          imageUrl: null,
           width: 120,
           height: 120,
-          child: ImageEditArea(imgFile: null),
+          onImageSelected: (file) {},
+          enable: true,
         ),
         SizedBox(height: 10),
         Text("圖檔僅接受 PNG 和 JPG 且檔案大小不可超過 5 MB")

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location_full.dart';
 
+import '../../NavigationHelper.dart';
 import '../component/bottom_bar.dart';
 import '../component/edit_components.dart';
 
@@ -70,10 +72,7 @@ class _SettingTeamLocation extends State<SettingTeamLocation> {
             BottomBarNext(
                 content: "下一步",
                 action: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingTeamLocation()));
+                  GoRouter.of(context).push(NavigationHelper.CREATE_TEAM_PAGE_A);
                 })
           ],
         )));

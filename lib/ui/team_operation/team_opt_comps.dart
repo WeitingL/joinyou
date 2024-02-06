@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
+import 'package:joinyou/ui/component/image_area.dart';
 
+import '../../NavigationHelper.dart';
 import '../../data/comment_data.dart';
 import '../component/comment_component.dart';
 import '../component/info_component.dart';
@@ -28,10 +30,8 @@ class ToolBarAreaForMaster extends StatelessWidget {
                 itemBuilder: (context) => [
                       PopupMenuItem(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return MemberManager();
-                            }));
+                            GoRouter.of(context)
+                                .push(NavigationHelper.MY_TEAM_MEMBER_MANAGE_PAGE);
                           },
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +94,10 @@ class TeamInformationLayout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 300, child: Container(color: AppColor.title_green)),
+        ImageArea(
+            height: 260,
+            width: MediaQuery.of(context).size.width,
+            imageUrl: null),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(

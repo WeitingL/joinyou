@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/ui/chat_room/chat_room.dart';
 import 'package:joinyou/ui/create_team_pages/create_normal_team.dart';
+import 'package:joinyou/ui/create_team_pages/create_normal_team_info_a.dart';
+import 'package:joinyou/ui/create_team_pages/create_normal_team_info_b.dart';
 import 'package:joinyou/ui/create_team_pages/create_team.dart';
 import 'package:joinyou/ui/create_team_pages/set_team_location.dart';
+import 'package:joinyou/ui/current_team/current_page.dart';
 import 'package:joinyou/ui/find_team/find_team_map.dart';
 import 'package:joinyou/ui/find_team/find_team_page.dart';
 import 'package:joinyou/ui/my_team/my_team_page.dart';
@@ -12,6 +15,7 @@ import 'package:joinyou/ui/rank_page/center_rank_page.dart';
 import 'package:joinyou/ui/setting/setting_page.dart';
 import 'package:joinyou/ui/team_operation/master/add_new_gamer.dart';
 import 'package:joinyou/ui/team_operation/master/manage_game.dart';
+import 'package:joinyou/ui/team_operation/master/member_management.dart';
 import 'package:joinyou/ui/team_operation/master/real_time_game.dart';
 import 'package:joinyou/ui/team_operation/master/start_arrange.dart';
 import 'package:joinyou/ui/team_operation/member/already_to_go_page.dart';
@@ -58,8 +62,13 @@ class NavigationHelper {
   static const TEAM_OPT_PAGE = "/team_operation";
   static const TEAM_FIND_MAP_PAGE = "/map_find_team";
 
+  static const MY_TEAM_MEMBER_MANAGE_PAGE = "/my_team/member_manage_page";
+  static const MY_TEAM_INSTANT_PLAY_PAGE = "/my_team/instant_play_page";
+
   static const CREATE_TEAM_PAGE = "/create_team/normal_team";
   static const CREATE_TEAM_LOCATION_PAGE = "/create_team/normal_team/location";
+  static const CREATE_TEAM_PAGE_A = "/create_team/pageA";
+  static const CREATE_TEAM_PAGE_B = "/create_team/pageB";
 
   static const FAST_CREATE_TEAM_PAGE = "/create_team/fast_team";
 
@@ -156,6 +165,26 @@ class NavigationHelper {
       ),
 
       GoRoute(
+        path: MY_TEAM_MEMBER_MANAGE_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: MemberManager(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: MY_TEAM_INSTANT_PLAY_PAGE,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: CurrentTeamPage(),
+          );
+        },
+      ),
+
+      GoRoute(
         path: FAST_CREATE_TEAM_PAGE,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
@@ -173,6 +202,26 @@ class NavigationHelper {
           final extra = state.extra as Map<String, dynamic>?;
           return NoTransitionPage(
             child: SettingTeamLocation(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: CREATE_TEAM_PAGE_A,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: CreateTeamPageA(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: CREATE_TEAM_PAGE_B,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(
+            child: CreateTeamPageB(),
           );
         },
       ),

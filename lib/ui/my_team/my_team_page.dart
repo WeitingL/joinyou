@@ -28,55 +28,54 @@ class _MyTeamPage extends State<MyTeamPage> {
         create: (context) => MyTeamCubit(),
         child: BlocBuilder<MyTeamCubit, IMyTeamState>(
             builder: (context, state) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Stack(
-                      alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Column(
                       children: [
-                        Column(
-                          children: [
-                            Container(height: 24),
-                            SwitcherBar(
-                                options: ["我的臨打", "管理球隊"],
-                                onPress: (index) {
-                                  if (index == 0) {
-                                    context.read<MyTeamCubit>().getMyTeam();
-                                  } else {
-                                    context.read<MyTeamCubit>().getMyPlayList();
-                                  }
-                                },
-                                isLoading: state is LoadingState),
-                            Container(height: 20),
-                            if (state is MyTeamState)
-                              Expanded(child: FirstPage(myTeams: state.myTeams))
-                            else if (state is MyPlayListState)
-                              Expanded(
-                                  child: SecondPage(myTeams: state.myPlayList))
-                            else
-                              Expanded(child: Center(child: Loading(size: 30)))
-                          ],
-                        ),
-                        Positioned(
-                            bottom: 20,
-                            right: 0,
-                            child: GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return CreateTeamDialog();
-                                      });
-                                },
-                                child: Container(
-                                  width: 56,
-                                  height: 56,
-                                  decoration: const BoxDecoration(
-                                      color: AppColor.title_green,
-                                      shape: BoxShape.circle),
-                                  child: const Icon(Icons.add,
-                                      color: AppColor.white),
-                                )))
+                        Container(height: 24),
+                        SwitcherBar(
+                            options: ["我的臨打", "管理球隊"],
+                            onPress: (index) {
+                              if (index == 0) {
+                                context.read<MyTeamCubit>().getMyTeam();
+                              } else {
+                                context.read<MyTeamCubit>().getMyPlayList();
+                              }
+                            },
+                            isLoading: state is LoadingState),
+                        Container(height: 20),
+                        if (state is MyTeamState)
+                          Expanded(child: FirstPage(myTeams: state.myTeams))
+                        else if (state is MyPlayListState)
+                          Expanded(child: SecondPage(myTeams: state.myPlayList))
+                        else
+                          Expanded(child: Center(child: Loading(size: 30)))
                       ],
-                    ))));
+                    ),
+                    Positioned(
+                        bottom: 20,
+                        right: 0,
+                        child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CreateTeamDialog();
+                                  });
+                            },
+                            child: Container(
+                              width: 56,
+                              height: 56,
+                              decoration: const BoxDecoration(
+                                  color: AppColor.title_green,
+                                  shape: BoxShape.circle),
+                              child:
+                                  const Icon(Icons.add, color: AppColor.white),
+                            )))
+                  ],
+                ))));
   }
 }
 
@@ -179,10 +178,8 @@ class FirstPage extends StatelessWidget {
       // button
       GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CurrentTeamPage()),
-            );
+            GoRouter.of(context)
+                .push(NavigationHelper.MY_TEAM_INSTANT_PLAY_PAGE);
           },
           child: Container(
               height: 60,
