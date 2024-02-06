@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:joinyou/NavigationHelper.dart';
@@ -107,7 +108,9 @@ class _TeamMemberStateItemState extends State<TeamMemberStateItem> {
                 Row(
                   children: [
                     Text("上場次數 $_gameCount",
-                        style: TextStyle(color: AppColor.black, fontSize: 18)),
+                        style: TextStyle(color: AppColor.black, fontSize:16),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
                     SizedBox(width: 8),
                     GestureDetector(
                       onTap: _showDialog,
@@ -122,7 +125,7 @@ class _TeamMemberStateItemState extends State<TeamMemberStateItem> {
                     SizedBox(width: 13),
                     Text("積分 $_score",
                         style: TextStyle(
-                            color: AppColor.title_green, fontSize: 18)),
+                            color: AppColor.title_green, fontSize: 16)),
                   ],
                 )
               ],
@@ -165,9 +168,11 @@ class _TeamMemberStateItemState extends State<TeamMemberStateItem> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            surfaceTintColor: AppColor.white,
             title: Text("請輸入上場次數"),
             content: TextField(
               keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(hintText: "請輸入上場次數"),
               onChanged: (value) {
                 setState(() {
@@ -267,7 +272,7 @@ class _TeamChallengeItemState extends State<TeamChallengeItem> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [Text("data"), Text("data")],
+                children: [Text("球友名稱 A"), Text("球友名稱 B")],
               ),
             ),
             Container(
@@ -281,7 +286,7 @@ class _TeamChallengeItemState extends State<TeamChallengeItem> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [Text("data"), Text("data")],
+                children: [Text("球友名稱 C"), Text("球友名稱 D")],
               ),
             ),
             Expanded(child: SizedBox()),
@@ -374,7 +379,7 @@ class _TeamMatchRequestItemState extends State<TeamMatchRequestItem> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10))),
-              child: Center(child: Text("data")),
+              child: Center(child: Text("球友名稱 A")),
             ),
             Container(
               width: 125,
@@ -384,7 +389,7 @@ class _TeamMatchRequestItemState extends State<TeamMatchRequestItem> {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10),
                       bottomRight: Radius.circular(10))),
-              child: Center(child: Text("data")),
+              child: Center(child: Text("球友名稱 B")),
             ),
             Expanded(child: SizedBox()),
             Column(

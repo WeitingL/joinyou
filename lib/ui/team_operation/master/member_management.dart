@@ -11,6 +11,8 @@ class MemberManager extends StatefulWidget {
 }
 
 class _MemberManagerState extends State<MemberManager> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +33,20 @@ class _MemberManagerState extends State<MemberManager> {
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   children: [
+                    SizedBox(height: 16),
                     SwitcherBar(
                         options: ["未確認", "已確認"],
-                        onPress: (index) {},
+                        onPress: (index) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
                         isLoading: false),
-                    const MemberUncheckedItem()
+                    SizedBox(height: 16),
+                    if (_currentIndex == 0)
+                      const MemberUncheckedItem()
+                    else
+                      const Text("confirmed page")
                   ],
                 )),
           ],
@@ -86,7 +97,8 @@ class MemberUncheckedItem extends StatelessWidget {
 
               const Expanded(child: SizedBox()),
 
-              Expanded(child: Column(
+              Expanded(
+                  child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

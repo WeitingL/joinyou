@@ -45,7 +45,7 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
         initialLocation: NavigationHelper.MY_TEAM_PAGE),
     MainBottomNavBarItem(
         icon: Icon(Icons.circle_outlined),
-        label: "Logo",
+        label: "積分排名",
         initialLocation: NavigationHelper.RANK_PAGE),
     MainBottomNavBarItem(
         icon: Icon(Icons.messenger_outline),
@@ -98,7 +98,7 @@ class _MainPageWithNavBar extends State<MainPageWithNavBar> {
       case 1:
         return "我的球團";
       case 2:
-        return "Logo";
+        return "積分排名";
       case 3:
         return "訊息";
       case 4:

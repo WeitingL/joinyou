@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../app_color.dart';
 import '../../component/bottom_bar.dart';
@@ -48,7 +49,9 @@ class _AddNewGamePlayerState extends State<AddNewGamePlayer> {
             )),
         bottomNavigationBar: SafeArea(
             child: BottomBarCenterButton(
-          action: () {},
+          action: () {
+            context.pop();
+          },
           content: '新增',
         )));
   }

@@ -151,6 +151,7 @@ class SwitcherTab extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+                disabledBackgroundColor: AppColor.transparent,
                 backgroundColor:
                     isSelected ? AppColor.white : AppColor.transparent,
                 shadowColor: AppColor.transparent,
