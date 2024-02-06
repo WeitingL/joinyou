@@ -10,8 +10,6 @@ import 'package:geolocator/geolocator.dart';
 
 import '../my_team/my_team_bloc.dart';
 
-
-
 class FindTeamByMap extends StatefulWidget {
   const FindTeamByMap({super.key});
 
@@ -21,19 +19,17 @@ class FindTeamByMap extends StatefulWidget {
 
 class _FindTeamByMap extends State<FindTeamByMap>
     with SingleTickerProviderStateMixin {
-
   late AnimationController _animationController;
-  late GoogleMapController mapController;
-  late Position currentLocation;
+  late GoogleMapController _mapController;
+  late Position _currentPosition;
 
   bool _showDetail = true;
-
 
   @override
   void initState() {
     _animationController = BottomSheet.createAnimationController(this);
+    _getCurrentLocation();
     super.initState();
-    _getLocation();
   }
 
   static const CameraPosition _initTaipei = CameraPosition(
@@ -41,23 +37,25 @@ class _FindTeamByMap extends State<FindTeamByMap>
     zoom: 15,
   );
 
-
-  _goToCurrentLocation() {
-      mapController.animateCamera(
-        CameraUpdate.newLatLng(LatLng(currentLocation.latitude, currentLocation.longitude)),
-      );
-  }
-
-  _getLocation() async {
+  _getCurrentLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
+
       setState(() {
-        currentLocation = position;
+        _currentPosition = position;
       });
+
+      // Move the camera to the user's current location
+      _mapController.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(position.latitude, position.longitude),
+        ),
+      );
     } catch (e) {
-      print(e);
+      print('Error getting location: $e');
+      // Handle the error, show a message to the user, etc.
     }
   }
 
@@ -66,45 +64,43 @@ class _FindTeamByMap extends State<FindTeamByMap>
     return BlocProvider(
         create: (context) => MyTeamCubit(),
         child: BlocBuilder<MyTeamCubit, IMyTeamState>(
-            builder: (context, state) =>
-                Scaffold(
-                  body: currentLocation == null
-                      ? Center(child: CircularProgressIndicator(),)
-                   : GoogleMap(
-                      mapType: MapType.normal,
-                      initialCameraPosition: _initTaipei,
-                      onMapCreated: (GoogleMapController controller) {
-                        mapController = controller;
-                      },
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: false,
-                      markers: {
-                        Marker(
-                            markerId: MarkerId("1"),
-                            position: LatLng(25.033142, 121.564212),
-                          onTap: () {
-                            _showBottomPage(); // 在点击标记时显示底部页面
-                          },
-                        )
-                      },
-                    ),
-                  floatingActionButton: Container(
-                      padding: _showDetail
-                          ? const EdgeInsets.only(bottom: 100)
-                          : const EdgeInsets.only(bottom: 0),
-                      child: FloatingActionButton(
-                        backgroundColor: AppColor.white,
-                        shape: const CircleBorder(),
-                        onPressed: _goToCurrentLocation,
-                        child: const Icon(Icons.my_location),
-                      )
-                  ),
-                )
-        )
-    );
+            builder: (context, state) => Stack(
+                  children: [_buildMap(), SafeArea(child: ToolBarArea())],
+                )));
   }
 
-
+  Scaffold _buildMap() {
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _initTaipei,
+        onMapCreated: (GoogleMapController controller) {
+          _mapController = controller;
+        },
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+        markers: {
+          Marker(
+            markerId: MarkerId("1"),
+            position: LatLng(25.033142, 121.564212),
+            onTap: () {
+              _showBottomPage(); // 在点击标记时显示底部页面
+            },
+          )
+        },
+      ),
+      floatingActionButton: Container(
+          padding: _showDetail
+              ? const EdgeInsets.only(bottom: 100)
+              : const EdgeInsets.only(bottom: 0),
+          child: FloatingActionButton(
+            backgroundColor: AppColor.white,
+            shape: const CircleBorder(),
+            onPressed: _getCurrentLocation,
+            child: const Icon(Icons.my_location),
+          )),
+    );
+  }
 
   void _showBottomPage() {
     showModalBottomSheet(
@@ -127,7 +123,7 @@ class _FindTeamByMap extends State<FindTeamByMap>
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey,
-                      borderRadius: BorderRadius.all( Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                     width: 100.0,
                     height: 10.0,
@@ -195,11 +191,14 @@ class _FindTeamByMap extends State<FindTeamByMap>
                 Center(
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(Size(300.0, 40.0),),
+                      fixedSize: MaterialStateProperty.all(
+                        Size(300.0, 40.0),
+                      ),
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all( Radius.circular(10.0)), // 設定為長方形，即無圓角
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10.0)), // 設定為長方形，即無圓角
                         ),
                       ), // 設定固定大小
                     ),
@@ -208,11 +207,14 @@ class _FindTeamByMap extends State<FindTeamByMap>
                       Navigator.pop(context);
                       // 按鈕被點擊時的處理邏輯
                     },
-                    child: Text("球隊報名",style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),),
+                    child: Text(
+                      "球隊報名",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.0,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -278,7 +280,9 @@ class _ToolBarArea extends State<ToolBarArea> {
             color: AppColor.transparent,
             surfaceTintColor: AppColor.transparent,
             child: GestureDetector(
-                onTap: () {context.pop();},
+                onTap: () {
+                  context.pop();
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -316,16 +320,17 @@ class _ToolBarArea extends State<ToolBarArea> {
                       width: 70,
                       height: 40,
                       decoration: BoxDecoration(
-                        border: Border.all(color: AppColor.title_green, width: 2),
+                        border:
+                            Border.all(color: AppColor.title_green, width: 2),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.calendar_month_sharp, color: AppColor.title_green),
+                          Icon(Icons.calendar_month_sharp,
+                              color: AppColor.title_green),
                           SizedBox(width: 4),
-
                           Text(
                             "5/1",
                             style: TextStyle(color: AppColor.title_green),

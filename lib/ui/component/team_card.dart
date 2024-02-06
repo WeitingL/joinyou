@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:joinyou/app_color.dart';
 import 'package:joinyou/data/data_team.dart';
 
+import 'image_area.dart';
+
 class TeamCard extends StatelessWidget {
   TeamData teamData;
   Function() onTap;
@@ -34,14 +36,10 @@ class TeamCard extends StatelessWidget {
                       // Image
                       Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Container(
-                            height: 80.0,
-                            width: 80.0,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColor.grey, width: 2.0),
-                                borderRadius: BorderRadius.circular(10.0)),
-                          )),
+                          child: ImageArea(
+                              width: 80,
+                              height: 80,
+                              enable: false)),
 
                       // Content
                       Column(

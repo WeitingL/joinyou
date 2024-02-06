@@ -111,8 +111,8 @@ class _FilterBar extends State<FilterBar> {
         children: [
           DropdownButton(
             items: const [
-              DropdownMenuItem(child: Text("1"), value: 1),
-              DropdownMenuItem(child: Text("2"), value: 2),
+              DropdownMenuItem(child: Text("台北市"), value: 1),
+              DropdownMenuItem(child: Text("新北市"), value: 2),
             ],
             hint: const Text("地點",
                 style: TextStyle(color: AppColor.text_grey_51)),
@@ -143,8 +143,9 @@ class _FilterBar extends State<FilterBar> {
 //---------------------------------------------------------------------//
           DropdownButton(
             items: const [
-              DropdownMenuItem(child: Text("1"), value: 1),
-              DropdownMenuItem(child: Text("2"), value: 2),
+              DropdownMenuItem(child: Text("初階"), value: 1),
+              DropdownMenuItem(child: Text("中階"), value: 2),
+              DropdownMenuItem(child: Text("高階"), value: 2),
             ],
             hint: const Text("程度",
                 style: TextStyle(color: AppColor.text_grey_51)),
@@ -159,8 +160,11 @@ class _FilterBar extends State<FilterBar> {
 //---------------------------------------------------------------------//
           DropdownButton(
             items: const [
-              DropdownMenuItem(child: Text("1"), value: 1),
-              DropdownMenuItem(child: Text("2"), value: 2),
+              DropdownMenuItem(child: Text("1分"), value: 1),
+              DropdownMenuItem(child: Text("2分"), value: 2),
+              DropdownMenuItem(child: Text("3分"), value: 3),
+              DropdownMenuItem(child: Text("4分"), value: 4),
+              DropdownMenuItem(child: Text("5分"), value: 5),
             ],
             hint: const Text("評分",
                 style: TextStyle(color: AppColor.text_grey_51)),
