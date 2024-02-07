@@ -2,11 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>io.flutter.embedded_views_preview</key>
-    <true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We want to access your photo to upload the team image.</string>
-	<key>com.apple.security.files.user-selected.read-only</key>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -30,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is needed to provide relevant information even when the app is in the background.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -47,13 +47,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<key>com.apple.security.files.user-selected.read-only</key>
 	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Your location is needed to provide relevant information.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Your location is needed to provide relevant information even when the app is in the background.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Needs PhotoLib access</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Needs camera access</string>
 </dict>
 </plist>
